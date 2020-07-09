@@ -14,6 +14,9 @@ router.get('/get', (req, res) => {
 router.get('/home', (req, res) => {
     res.render('home')
 })
+router.get('/page-2', (req, res) => {
+    res.render('page-2')
+})
 
 router.post('/event', async (req, res) => {
 
