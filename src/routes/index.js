@@ -11,6 +11,10 @@ router.get('/get', (req, res) => {
     res.render('index')
 })
 
+router.get('/page-2', (req, res) => {
+    res.render('page-2')
+})
+
 router.post('/event', async (req, res) => {
 
     const event = new Evento(req.body);
