@@ -4,11 +4,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <title>BOROOOOOSA</title>
 </head>
 
 <body>
-    <h1>de parassticoo</h1>
+    <div class="d-flex justify-content-center">
+
+        <div class="card">
+          <h5 class="card-header">Create Event</h5>
+          <div class="card-body">
+          <form action="/event" method="POST">
+                <div class="form-group">
+                    <label for="exampleInputTitle">titulo</label>
+                    <input type="text" class="form-control" placeholder="title" name= "title">
+                    
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputDescription">descripcion</label>
+                    <input type="text" class="form-control" placeholder="description" name="description_event">
+                   
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputAforo">Aforo</label>
+                    <input type="text" class="form-control" placeholder="aforo" name= "max_capacity">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPrice">Precio</label>
+                    <input type="text" class="form-control" placeholder="precio" name= "price">
+                </div>
+                <button type="submit" class="btn btn-primary" name="create_event">Create event</button>
+            </form>
+           
+            
+          </div>
+        </div>
+            
+        </div>
+        
+
+
+
+
+
+
+
+
+
+
+
+    <h1>Borosa de parassticoo</h1>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 
 </html>
