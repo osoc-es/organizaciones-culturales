@@ -8,9 +8,10 @@ router.get('/', (req, res) => {
 })
 
 router.get('/home', async (req, res) => {
-    const activities = await Event.find();
+    const activities = await Evento.find();
     res.render('home' , {activities})
 })
+
 router.get('/get', (req, res) => {
     res.render('index')
 })
