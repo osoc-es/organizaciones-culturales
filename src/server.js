@@ -55,7 +55,7 @@ router.post("/user/register",async (req,res)=>{
     alert("Usuario ya creado");
     res.redirect('/');
   }
-})
+});
 
 router.post('/user/login',(req,res)=>{
 
@@ -69,13 +69,13 @@ router.post('/user/login',(req,res)=>{
           res.send('Success');
           req.session.email = req.body.email;
       }
-            else()  {
-              res.send("La contrasenia no coincide")
+            else  {
+              res.send("La contrasenia no coincide");
             }}
       catch (e ){
         return res.status(500);
       }}
-    })
+    });
 
   router.get('/logout',(req,res) => {
         req.session.destroy((err) => {
