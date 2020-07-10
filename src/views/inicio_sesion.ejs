@@ -1,0 +1,33 @@
+<%- include('partials/_header') %>
+
+    <body>
+        <nav class="navbar mb-5 " style="background-color: black !important; height: 5rem;">
+            <img src="images/logo.png" class="mx-auto">
+        </nav>
+
+        <div class="card mx-auto" style="width: 25rem;">
+            <div class="card-body">
+                <h5 class="card-title" style="text-align: center; font-size: xx-large; font-weight: bold;">Bienvenido</h5>
+                <br>
+
+                <form>
+                    <div class="form-group">
+                    <label for="exampleInputEmail1">Correo electrónico</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+                    <div class="form-group">
+                    <label for="exampleInputPassword1">Contraseña</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1">
+                    </div>
+                    <button type="submit" class="btn btn-light">Entrar</button>
+                </form>
+                <br><br>
+
+                <div class="card-text" style="text-align: center;">
+                    ¿No tienes una cuenta?
+                    <a href="#">Regístrate</a>
+                </div>
+            </div>
+        </div>
+
+        <%- include('partials/_footer.ejs') %>
