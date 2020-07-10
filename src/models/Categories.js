@@ -1,4 +1,11 @@
 const mongoose = require('mongoose');
-
-const categories = new Enum (['cine','teatro','bar','restaurante']);
+ 
+const categories = {
+    CINEMA: 0,
+    THEATER: 1,
+    GASTRONOMY: 2,
+    MUSSEUM: 3
+    /* ... */
+}
+ 
 module.exports = mongoose.model('categories', categories);
