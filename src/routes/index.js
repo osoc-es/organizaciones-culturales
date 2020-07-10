@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Event = require('../models/Event');
+//const Cate = require('../models/Categories');
 
 
 router.get('/', (req, res) => {
@@ -9,6 +10,7 @@ router.get('/', (req, res) => {
 
 router.get('/home', async (req, res) => {
     const activities = await Event.find();
+    //activities.find(activity => activity.Categoria == )
     res.render('home', { activities })
 })
 
