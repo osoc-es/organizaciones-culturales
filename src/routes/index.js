@@ -96,7 +96,7 @@ router.get('/page3', (req, res) => {
     res.render('page3')
 })
 
-router.post('/event', async (req, res) => {
+router.post('/create-event', async (req, res) => {
 
     const event = new Event(req.body);
     await event.save();

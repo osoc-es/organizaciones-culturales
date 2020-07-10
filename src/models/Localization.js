@@ -9,4 +9,4 @@ const LocalizationSchema = new Schema({
     localization: String //Un html
 });
 
-module.exports = mongoose.model('localizaciones', LocalizationSchema);
+module.exports = mongoose.model('Locations', LocalizationSchema);

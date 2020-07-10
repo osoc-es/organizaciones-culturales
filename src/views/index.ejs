@@ -6,7 +6,7 @@
     <div class="card">
         <h5 class="card-header">Create Event</h5>
         <div class="card-body">
-            <form action="/event" method="POST">
+            <form action="/create-event" method="POST">
                 <div class="form-group">
                     <label for="exampleInputTitle">titulo</label>
                     <input type="text" class="form-control" placeholder="title" name="title">
@@ -24,6 +24,11 @@
                 <div class="form-group">
                     <label for="exampleInputPrice">Precio</label>
                     <input type="text" class="form-control" placeholder="precio" name="price">
+                </div>
+                <div>
+                    <div class="form-group">
+                        <input type="file" name="image" id="input-files" class="form-control-file border" />
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Create event</button>
             </form>
