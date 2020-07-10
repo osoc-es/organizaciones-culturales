@@ -1,11 +1,16 @@
 const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
-const app = express();
 const mongoose = require('mongoose');
 
+const app = express();
+
+const mongoURI = 'mongodb://localhost/osoc-test';
+
 // connecting to db
-mongoose.connect('mongodb://localhost/osoc-test')
+const conn = mongoose.createConnection(mongoURI);
+
+mongoose.connect(mongoURI)
     .then(db => console.log('Db connected'))
     .catch(err => console.log(err))
 
