@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const Event = require('../models/Event');
-//const Cate = require('../models/Categories');
+const Cate = require('../models/Categories');
 const Image = require('../models/Image');
 
 const upload = multer({
