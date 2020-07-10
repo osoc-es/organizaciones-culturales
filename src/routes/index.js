@@ -99,6 +99,7 @@ router.get('/page3', (req, res) => {
 router.post('/create-event', async (req, res) => {
 
     const event = new Event(req.body);
+    //res.send(req.body);
     await event.save();
     console.log(req.body);
 })
