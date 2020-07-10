@@ -23,8 +23,13 @@ router.get('/inicio_sesion', (req, res) => {
 router.get('/settings', (req, res) => {
     res.render('settings')
 })
+
 router.get('/page-2', (req, res) => {
     res.render('page-2')
+})
+
+router.get('/evento', (req, res) => {
+    res.render('evento')
 })
 
 router.get('/page3', (req, res) => {
