@@ -10,8 +10,6 @@
             integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
         <!-- GOOGLE FONTS -->
         <link href="https://fonts.googleapis.com/css2?family=Barlow&display=swap" rel="stylesheet">
-        <!-- SCROLL REVEAL -->
-        <script src="https://unpkg.com/scrollreveal"></script>
         <!-- FONT AWESOME -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
@@ -32,10 +30,9 @@
                 <div class="col-4">
                     <div class="list-group" id="list-tab" role="tablist">
                         <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="Mi Cuenta">Mi cuenta</a>
-                        <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="Pagos">Pagos</a>
                         <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="Ayuda">Ayuda</a>
                         <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="Sobre nosotros">Sobre nosotros</a>
-                        <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#" role="tab" aria-controls="Salir">Salir</a>
+                        <a class="list-group-item list-group-item-action" data-toggle="list" href="inicio_sesion.ejs">Salir</a>
                     </div>
                 </div>
                 <div class="col-8">
@@ -79,8 +76,7 @@
                             <button type="Cambiar" class="btn btn-light">Cambiar</button>
                           </form>
                     </div>
-                    <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">...</div>
-                    <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">...</div>
+                    <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list"> Envianos un correo a: algo@gmail.com</div>
                     <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">
                         <p>
                             Actualmente, dada la transición a la “nueva normalidad” se prevé que las personas que asisten
@@ -89,16 +85,15 @@
                             usuario en cuanto a tipo de espectáculo y horarios disponibles y a las restricciones de aforo,
                             funciones y horarios de los espectáculos, se pueda recomendar al usuario su “Itinerario
                             Cultural”.
+                            <br><br>
+                            <i class="fab fa-instagram"></i>
+                            <i class="fab fa-twitter"></i>
+                            <i class="fab fa-facebook-square"></i>
                         </p>
                     </div>
                   </div>
                 </div>
               </div>
         </div>
-
-
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
-    </body>
-</html>
+        
+<%- include('partials/_footer.ejs') %>
