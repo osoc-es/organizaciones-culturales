@@ -8,8 +8,9 @@ router.get('/', async (req, res) => {
 })
 
 
-router.get('/home', (req, res) => {
-    res.render('home')
+router.get('/home', async (req, res) => {
+    const activities = await Event.find();
+    res.render('home' , {activities})
 })
 router.get('/page-2', (req, res) => {
     res.render('page-2')
