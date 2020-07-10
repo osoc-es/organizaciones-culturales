@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Evento = require('../models/Event');
+const Event = require('../models/Event');
 
 
 router.get('/', (req, res) => {
@@ -8,8 +8,8 @@ router.get('/', (req, res) => {
 })
 
 router.get('/home', async (req, res) => {
-    const activities = await Evento.find();
-    res.render('home' , {activities})
+    const activities = await Event.find();
+    res.render('home', { activities })
 })
 
 router.get('/get', (req, res) => {
@@ -26,7 +26,7 @@ router.get('/page3', (req, res) => {
 
 router.post('/event', async (req, res) => {
 
-    const event = new Evento(req.body);
+    const event = new Event(req.body);
     await event.save();
     console.log(req.body);
 })
