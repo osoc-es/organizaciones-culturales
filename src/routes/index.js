@@ -2,14 +2,18 @@ const express = require('express');
 const router = express.Router();
 const Event = require('../models/Event');
 
-router.get('/', async (req, res) => {
-    const events = await Event.find();
-    res.render('index', { events });
+
+router.get('/', (req, res) => {
+    res.render('index')
 })
 
+router.get('/home', async (req, res) => {
+    const activities = await Event.find();
+    res.render('home', { activities })
+})
 
-router.get('/home', (req, res) => {
-    res.render('home')
+router.get('/get', (req, res) => {
+    res.render('index')
 })
 
 router.get('/inicio_sesion', (req, res) => {
@@ -19,14 +23,19 @@ router.get('/inicio_sesion', (req, res) => {
 router.get('/settings', (req, res) => {
     res.render('settings')
 })
+router.get('/page-2', (req, res) => {
+    res.render('page-2')
+})
+
+router.get('/page3', (req, res) => {
+    res.render('page3')
+})
 
 router.post('/event', async (req, res) => {
+
     const event = new Event(req.body);
     await event.save();
-    res.redirect('/');
     console.log(req.body);
 })
 
-
 module.exports = router;
-
