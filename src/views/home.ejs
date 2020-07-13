@@ -20,6 +20,7 @@
 
 <br>
 <h1><%= activities[0] %></h1>
+<h1><%= activities.filter(x=>x.category == 0) %></h1>
 <br>
 
 <% for(var categories = 0; categories < Categories.size; ++categories){ %>
@@ -31,31 +32,10 @@
 <br>
 <div style="padding: 10ch !important;" id="carouselExampleControls" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
-    <% for(var i = 0; i < 2; ++i){ %>
+    <% for(var i = 0; i < 2 ; ++i){ %>
 
-    <% if(i == 0 ){ %>
-    <div class="carousel-item active">
-
-      <div class="d-flex justify-content-left">
-        <% for(var z = 0; z < 5; ++z){ %>
-        <div class="card" style="margin-right: 2ch !important; width: 18rem;">
-          <img src="..." class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Card <%=z%></h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-              content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-        <% } %>
-
-
-
-      </div>
-    </div>
-    <% } 
-          else { %>
-    <div class="carousel-item">
+   
+    <div class="carousel-item <%= i == 0 ? 'active' : '' %>">
 
       <div class="d-flex justify-content-left">
         <% for(var z = 0; z < 5; ++z){ %>
@@ -68,13 +48,10 @@
             <a href="#" class="btn btn-primary">Go somewhere</a>
           </div>
         </div>
-        <% } %>
+        <%}%>
       </div>
-
     </div>
-
-    <% }
-        } %>
+       <% } %>
 
   </div>
   <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -86,7 +63,6 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
-
 <br>
 <% }%>
 
