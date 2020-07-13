@@ -10,26 +10,26 @@
             <h5 class="card-title" style="text-align: center; font-size: xx-large; font-weight: bold;">Bienvenido</h5>
             <br>
 
-            <form>
+            <form action="/user/register" method="POST">
                 <div class="form-group">
                 <label for="exampleInputnombre1">Nombre de la Organización</label>
-                <input type="nombre" class="form-control" id="exampleInputnombre1" aria-describedby="emailHelp">
+                <input type="nombre" class="form-control" id="exampleInputnombre1" aria-describedby="emailHelp" name="name">
                 </div>
                 <div class="form-group">
                 <label for="exampleInputcorreo1">Correo de contacto</label>
-                <input type="correo" class="form-control" id="exampleInputcorreo1">
+                <input type="correo" class="form-control" id="exampleInputcorreo1" name="email">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputlocaliz1">Localización</label>
-                    <input type="localiz" class="form-control" id="exampleInputlocaliz1">
+                    <input type="localiz" class="form-control" id="exampleInputlocaliz1" name="location">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputweb1">Página web</label>
-                    <input type="web" class="form-control" id="exampleInputweb1">
+                    <input type="web" class="form-control" id="exampleInputweb1" name="webPage">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputcontra1">Contraseña</label>
-                    <input type="contra" class="form-control" id="exampleInputcontra1">
+                    <input type="contra" class="form-control" id="exampleInputcontra1" name="password">
                 </div>
                 <button type="continuar" class="btn btn-light">Continuar</button> 
             </form>
