@@ -1,6 +1,4 @@
 <%- include('partials/_header') %>
-
-
 <div class="d-flex justify-content-center">
 
     <div class="card">
@@ -14,7 +12,7 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleInputDescription">descripcion</label>
-                    <input type="text" class="form-control" row = "3" placeholder="description" name="description_event">
+                    <input type="text" class="form-control" row="3" placeholder="description" name="description_event">
 
                 </div>
                 <div class="form-group">
@@ -26,12 +24,11 @@
                     <input type="text" class="form-control" placeholder="precio" name="price">
                 </div>
                 <div class="form-group">
-                    <label for="categories_id">Example select</label>
+                    <label for="categories_id">Caregorias</label>
                     <select class="form-control" id="categories_id" name="category">
-                        <option>cine</option>
-                        <option>teatro</option>
-                        <option>museo</option>
-                        <option>gastronomia</option>
+                        <%for(var i = 0; i < categories.size;i++){%>
+                        <option><%=categories.get(i) %></option>
+                        <%}%>
                       </select>
                 </div>
                 <div class="form-group">
@@ -48,7 +45,8 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPrice">Información extra</label>
-                    <input type="text" class="form-control" placeholder="rampas, ascensor, parking, etc" name="extra_info">
+                    <input type="text" class="form-control" placeholder="rampas, ascensor, parking, etc"
+                        name="extra_info">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPrice">Público Objetivo</label>

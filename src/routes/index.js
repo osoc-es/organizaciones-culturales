@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const Event = require('../models/Event');
-const Cate = require('../models/Categories');
+const Categories = require('../models/Categories');
 const Image = require('../models/Image');
 
 const upload = multer({
@@ -16,6 +16,16 @@ const upload = multer({
         cb(undefined, true); // continue with upload
     }
 });
+
+
+router.post('/create-event', async (req, res) => {
+
+    const event = new Event(req.body);
+    //res.send(req.body);
+    await event.save();
+    console.log(req.body);
+
+})
 
 router.post('/submitImg', upload.single("image"), async (req, res) => {
     try {
@@ -62,14 +72,17 @@ router.get('/photos', async (req, res) => {
 // });
 
 router.get('/', (req, res) => {
-    res.render('index')
+    const categories = Categories;
+    res.render('index', { categories })
 })
 
 router.get('/home', async (req, res) => {
     const activities = await Event.find();
     //activities.find(activity => activity.Categoria == )
-    res.render('home', { activities })
+    res.render('home', { activities, Categories })
 })
+
+
 
 router.get('/get', (req, res) => {
     res.render('index')
@@ -93,13 +106,6 @@ router.get('/evento', (req, res) => {
 
 router.get('/page3', (req, res) => {
     res.render('page3')
-})
-
-router.post('/create-event', async (req, res) => {
-
-    const event = new Event(req.body);
-    await event.save();
-    console.log(req.body);
 })
 
 module.exports = router;
