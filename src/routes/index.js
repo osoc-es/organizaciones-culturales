@@ -18,6 +18,15 @@ const upload = multer({
 });
 
 
+router.post('/create-event', async (req, res) => {
+
+    const event = new Event(req.body);
+    //res.send(req.body);
+    await event.save();
+    console.log(req.body);
+
+})
+
 router.post('/submitImg', upload.single("image"), async (req, res) => {
     try {
         const photo = new Image(req.body);
@@ -64,13 +73,13 @@ router.get('/photos', async (req, res) => {
 
 router.get('/', (req, res) => {
     const categories = Categories;
-    res.render('index', {categories})
+    res.render('index', { categories })
 })
 
 router.get('/home', async (req, res) => {
     const activities = await Event.find();
     //activities.find(activity => activity.Categoria == )
-    res.render('home', { activities })
+    res.render('home', { activities, Categories })
 })
 
 
@@ -97,13 +106,6 @@ router.get('/evento', (req, res) => {
 
 router.get('/page3', (req, res) => {
     res.render('page3')
-})
-
-router.post('/create-event', async (req, res) => {
-
-    const event = new Event(req.body);
-    await event.save();
-    console.log(req.body);
 })
 
 module.exports = router;
