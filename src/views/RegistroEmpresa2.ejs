@@ -1,0 +1,45 @@
+<%- include('partials/_header') %>
+
+    <body>
+        <nav class="navbar mb-5 " style="background-color: black !important; height: 5rem;">
+            <img src="logo.png" class="mx-auto">
+        </nav>
+
+        <div class="card mx-auto" style="width: 25rem;">
+            <div class="card-body">
+            <h5 class="card-title" style="text-align: center; font-size: xx-large; font-weight: bold;">Bienvenido</h5>
+            <br>
+
+            <form>
+                <div class="form-group">
+                <textarea name="texto" rows="4" cols="40" placeholder="Descripción de la organización"></textarea>            
+                </div>
+                <div class="form-group">
+                    Abierto desde: <input type="time" name="abrir">
+                    hasta: <input type="time" name="cerrar">
+                </div>
+                <p>Días disponibles: <br>
+                    <input type="checkbox" name="hm" value="L"> Lunes <br>
+                    <input type="checkbox" name="hm" value="M"> Martes <br>
+                    <input type="checkbox" name="hm" value="X"> Miercoles <br>
+                    <input type="checkbox" name="hm" value="J"> Jueves <br>
+                    <input type="checkbox" name="hm" value="V"> Viernes <br>
+                    <input type="checkbox" name="hm" value="S"> Sábado <br>
+                    <input type="checkbox" name="hm" value="D"> Domingo <br>
+                  </p>
+
+                
+                <div class="form-group">
+                    <label for="exampleInputcontra1">Salas disponibles</label>
+                    <input type="salas" class="form-control" id="exampleInputcontra1">
+                </div>
+                <button type="finalizar" class="btn btn-light">Finalizar</button> 
+            </form>
+            <br><br>
+
+            <div class="card-text" style="text-align: center;">
+                ¿Ya tienes una cuenta?
+                <a href="#">Accede</a>
+            </div>
+        </div>
+<%- include('partials/_footer.ejs') %>
