@@ -1,10 +1,10 @@
 
-let categories = new Map();
+const categories = new Map();
 
-categories.set("CINEMA", 0);
-categories.set("THEATER", 1);
-categories.set("GASTRONOMY", 2);
-categories.set("MUSSEUM", 3);
+categories.set(0,"CINE");
+categories.set(1,"TEATRO");
+categories.set(2,"GASTRONOMIA");
+categories.set(3,"MUSEO");
 
 
 module.exports = categories;

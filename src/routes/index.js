@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const Event = require('../models/Event');
-const Cate = require('../models/Categories');
+const Categories = require('../models/Categories');
 const Image = require('../models/Image');
 
 const upload = multer({
@@ -63,7 +63,8 @@ router.get('/photos', async (req, res) => {
 // });
 
 router.get('/', (req, res) => {
-    res.render('index')
+    const categories = Categories;
+    res.render('index', {categories})
 })
 
 router.get('/home', async (req, res) => {
