@@ -12,11 +12,11 @@ const EventSchema = new Schema({
         type: Number,
         required: [true, 'Dime la capacidad maxima']
     },
-    current_capacity: {
+/*    current_capacity: {
         type: Number,
         //required: [true, 'Dime la capacidad actual']
         required: [false, 'Dime la capacidad actual']
-    },
+    },*/
     price: {
         type: mongoose.Types.Decimal128,
         required: [true, 'Dime el precio']

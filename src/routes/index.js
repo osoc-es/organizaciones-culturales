@@ -17,7 +17,6 @@ const upload = multer({
     }
 });
 
-
 router.post('/submitImg', upload.single("image"), async (req, res) => {
     try {
         const photo = new Image(req.body);
