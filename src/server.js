@@ -38,7 +38,7 @@ router.get('/',(req,res) => {
 router.post("/user/register",async (req,res)=>{
 
   const user=User.find(req.body.email);
-  if(user!=null){
+  if(user==null){
     try {
       const user=new User(req.body);
       user.credentials.contrasenia= await bycrypt.hash(req.body.password,10);
@@ -57,7 +57,7 @@ router.post("/user/register",async (req,res)=>{
   }
 });
 
-router.post('/user/login',(req,res)=>{
+router.post('/user/login', async(req,res)=>{
 
   const user=User.find(req.body.email);
     if(user==null){
