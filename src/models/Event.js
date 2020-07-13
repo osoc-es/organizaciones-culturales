@@ -21,8 +21,6 @@ const EventSchema = new Schema({
         type: mongoose.Types.Decimal128,
         required: [true, 'Dime el precio']
     },
-    main_picture: { type: mongoose.Schema.Types.ObjectId, ref: 'Image' },
-    pictures: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Image' }],
     category: Number,
     tags: [String],
     reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }],
@@ -30,9 +28,8 @@ const EventSchema = new Schema({
     localization: { type: mongoose.Schema.Types.ObjectId, ref: 'Locations' },
     extraInfo: String,
     target: String,
-    map: { type: mongoose.Schema.Types.ObjectId, ref: 'Image' },
     web: String,
     promotions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'promotions' }]
 });
 
-module.exports = mongoose.model('events', EventSchema);
+module.exports = mongoose.model('Events', EventSchema);

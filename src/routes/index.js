@@ -17,13 +17,34 @@ const upload = multer({
     }
 });
 
-
 router.post('/create-event', async (req, res) => {
 
-    const event = new Event(req.body);
-    //res.send(req.body);
+    try{
+    const event = new Event({title: req.body.title, 
+        max_capacity: req.body.max_capacity,
+        price: req.body.price,
+        tags: req.body.tags,
+        reviews:req.body.reviews,
+        localization: req.body.localization});
+
     await event.save();
-    console.log(req.body);
+
+    const image  = new Image({ismap : true,
+    photo : req.body.blueprint,
+    foreingKey: event});
+    await image.save();
+
+    const image2  = new Image({ismap : false,
+        photo : req.body.image,
+        foreingKey: event});
+
+        await image2.save();
+
+    }
+    catch(e)
+    {
+        console.log("error");
+    }
 
 })
 
