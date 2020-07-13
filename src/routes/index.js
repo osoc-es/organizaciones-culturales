@@ -129,4 +129,19 @@ router.get('/page3', (req, res) => {
     res.render('page3')
 })
 
+router.get('/RegistroEmpresa', (req, res) => {
+    res.render('RegistroEmpresa')
+})
+
+router.get('/RegistroEmpresa2', (req, res) => {
+    res.render('RegistroEmpresa2')
+})
+
+router.post('/create-event', async (req, res) => {
+
+    const event = new Event(req.body);
+    await event.save();
+    console.log(req.body);
+})
+
 module.exports = router;
