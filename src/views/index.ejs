@@ -1,6 +1,4 @@
 <%- include('partials/_header') %>
-
-
 <div class="d-flex justify-content-center">
 
     <div class="card">
@@ -26,13 +24,12 @@
                     <input type="text" class="form-control" placeholder="precio" name="price">
                 </div>
                 <div class="form-group">
-                    <label for="categories_id">Example select</label>
+                    <label for="categories_id">Caregorias</label>
                     <select class="form-control" id="categories_id" name="category">
-                        <option>cine</option>
-                        <option>teatro</option>
-                        <option>museo</option>
-                        <option>gastronomia</option>
-                    </select>
+                        <%for(var i = 0; i < categories.size;i++){%>
+                        <option><%=categories.get(i) %></option>
+                        <%}%>
+                      </select>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPrice">Tags</label>

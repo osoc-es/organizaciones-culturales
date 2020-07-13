@@ -22,9 +22,9 @@
 <h1><%= activities[0] %></h1>
 <br>
 
-<% for(var categories = 0; categories < 2; ++categories){ %>
+<% for(var categories = 0; categories < Categories.size; ++categories){ %>
 <div class="d-flex justify-content-center">
-  <h1>Lo más Popular</h1>
+  <h1><%= Categories.get(categories)%></h1>
 </div>
 
 
