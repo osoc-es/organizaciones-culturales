@@ -73,6 +73,8 @@ router.get('/home', async (req, res) => {
     res.render('home', { activities })
 })
 
+
+
 router.get('/get', (req, res) => {
     res.render('index')
 })

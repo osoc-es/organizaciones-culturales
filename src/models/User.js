@@ -10,7 +10,7 @@ const UserSchema = new Schema({
     type:Number,
     required:true
   },
-  credentials":{
+  credentials :{
     type:CredentialSchema,
     required:true
   },
@@ -20,8 +20,6 @@ const UserSchema = new Schema({
       type: String,
       get: v => `${root}${v}`
     }
-
-
 
 });
 
