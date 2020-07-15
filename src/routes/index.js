@@ -178,8 +178,9 @@ const { db } = require('../models/Image');
   res.json(req.User);}
   )
 
-  router.get('/search',(req,res)=>{
-      var titulo=req.body.title.toLowerCase();
+  router.post('/search',(req,res)=>{
+      var  aux=req.body.title;
+      var titulo=aux.toLowerCase();
         if(req.body.edad==null && req.body.category==null){
             var query={title:/titulo/};
         }
@@ -193,9 +194,9 @@ const { db } = require('../models/Image');
                     var query={title:/titulo/,target:{$gte:req.body.edad},category:req.body.category};
                 }
         const doc=Event.find(query);    
-        console.log(doc);
-        res.jsonp (doc) ;  
-  })
+
+        res.render('busqueda',doc) ;  
+  });
 
 /*
 router.get('/', (req, res) => {
