@@ -60,12 +60,12 @@ router.post('/create-event', async (req, res) => {
 
         await event.save();
 
-        var evets_per_category = {
-            cat0: await Event.find({ "category": 0 }),
-            cat1: await Event.find({ "category": 1 }),
-            cat2: await Event.find({ "category": 2 }),
-            cat3: await Event.find({ "category": 3 })
-        };
+        var evets_per_category = [
+            await Event.find({ "category": 0 }),
+            await Event.find({ "category": 1 }),
+            await Event.find({ "category": 2 }),
+            await Event.find({ "category": 3 })
+        ];
 
         // No funca
         // var evets_per_category = new Array();
