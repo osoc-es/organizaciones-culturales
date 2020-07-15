@@ -199,11 +199,6 @@ router.get('/home', async (req, res) => {
             "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Bar-restaurante_del_centro_de_Madrid%2C_2016.jpg/640px-Bar-restaurante_del_centro_de_Madrid%2C_2016.jpg"
         ];
 
-router.get('/home_user', async (req, res) => {
-    const activities = await Event.find();
-    //activities.find(activity => activity.Categoria == )
-    res.render('home_user', { activities, Categories })
-})
 
     var museo_imgs =
         [
@@ -228,12 +223,19 @@ router.get('/home_user', async (req, res) => {
             else if (ev.category == 3) // Museos
                 ev.main_picture = museo_imgs[Math.floor(Math.random() * museo_imgs.length)];
 
-        });
+        })
+    });
 
 
+    res.render('home', { evets_per_category: evets_per_category, Categories });
 
-        res.render('home', { evets_per_category, Categories })
-    })
+})
+
+
+router.get('/home_user', async (req, res) => {
+    const activities = await Event.find();
+    //activities.find(activity => activity.Categoria == )
+    res.render('home_user', { activities, Categories })
 })
 
 router.get('/get', (req, res) => {
@@ -297,34 +299,35 @@ router.get('/', (req, res) => {
 
 const controladorCred = require('../Drivers/cred');
 const { db } = require('../models/Image');
-  router.post('/signupUser',controladorCred.postSignupUser);
-  router.post('/signupOrganizacion',controladorCred.postSignupOrg);
-  router.post('/login',controladorCred.postLogin);
-  router.get('/logout',passportConfig.estaAutenticado,controladorCred.logout);
-  
-  router.get('/usuarioInfo',passportConfig.estaAutenticado,(req,res)=>{
-  res.json(req.User);}
-  )
+router.post('/signupUser', controladorCred.postSignupUser);
+router.post('/signupOrganizacion', controladorCred.postSignupOrg);
+router.post('/login', controladorCred.postLogin);
+router.get('/logout', passportConfig.estaAutenticado, controladorCred.logout);
 
-  router.post('/search',(req,res)=>{
-      var  aux=req.body.title;
-      var titulo=aux.toLowerCase();
-        if(req.body.edad==null && req.body.category==null){
-            var query={title:/titulo/};
-        }
-            else if(req.body.edad==null)    {
-                var query={title:/titulo/,category:req.body.category};
-            }
-                else if(req.body.category==null){
-                    var query={title:/titulo/,target:{$gte:req.body.edad}};
-                }
-                else{
-                    var query={title:/titulo/,target:{$gte:req.body.edad},category:req.body.category};
-                }
-        const doc=Event.find(query);    
+router.get('/usuarioInfo', passportConfig.estaAutenticado, (req, res) => {
+    res.json(req.User);
+}
+)
 
-        res.render('busqueda',doc) ;  
-  });
+router.post('/search', (req, res) => {
+    var aux = req.body.title;
+    var titulo = aux.toLowerCase();
+    if (req.body.edad == null && req.body.category == null) {
+        var query = { title: /titulo/ };
+    }
+    else if (req.body.edad == null) {
+        var query = { title: /titulo/, category: req.body.category };
+    }
+    else if (req.body.category == null) {
+        var query = { title: /titulo/, target: { $gte: req.body.edad } };
+    }
+    else {
+        var query = { title: /titulo/, target: { $gte: req.body.edad }, category: req.body.category };
+    }
+    const doc = Event.find(query);
+
+    res.render('busqueda', doc);
+});
 
 /*
 router.get('/', (req, res) => {
