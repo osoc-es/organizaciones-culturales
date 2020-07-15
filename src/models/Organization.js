@@ -1,25 +1,33 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.mongoose.Schema;
+const Schema = mongoose.Schema;
 
 const OrganizationSchema = new Schema({
-  credentials: {
-    type: CredentialSchema,
-    required: true
-  },
+  /*credentials :{
+    type: mongoose.Schema.Types.ObjectId, ref: 'Creedenciales',
+    required:true
+  },*/
+
   name: {
     type: String,
     required: [true, 'Escribe el nombre']
   },
+
   horario: Date,
-  localization: LocalizationSchema,
+
+// location: { type: mongoose.Schema.Types.ObjectId, ref: 'Locations' },
+
   telephone: String,
-  web: String,
-  pictures: [{
+
+  webPage: String,
+
+  /*pictures: [{
     type: String,
     get: v => `${root}${v}`
-  }],
+  }],*/
+
   description: String,
-  salas: [SalaSchema]
+
+  //salas: [SalaSchema]
 });
 
 module.exports = mongoose.model('Organizaciones', OrganizationSchema);

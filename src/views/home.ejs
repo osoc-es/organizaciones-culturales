@@ -2,7 +2,7 @@
 <nav style="padding: 0ch !important;" class="navbar navbar-dark bg-dark">
   <span class="navbar-brand mb-0 h1"></span>
 
-  <form class="form-inline" action="?" method="POST">
+  <form class="form-inline" action="/search" method="GET">
     <button class="btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#search"
       aria-expanded="false" name="search"><i class="fas fa-search"></i></button>
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="sign_in"><i class="fas fa-sign-in-alt"></i>
@@ -14,7 +14,7 @@
 </nav>
 <div class="collapse" id="search">
   <div class="card card-body">
-    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search", name="title">
   </div>
 </div>
 

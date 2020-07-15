@@ -3,16 +3,38 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 
-const app = express();
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+const passport= require('passport');
+const bodyparser= require('body-parser');
 
-const mongoURI = 'mongodb://localhost/osoc-test';
+const app = express();
+const mongoURI = 'mongodb://mongo:27017/mongo';//'mongodb://localhost/osoc-test';
 
 // connecting to db
 const conn = mongoose.createConnection(mongoURI);
 
+mongoose.Promise= global.Promise;
 mongoose.connect(mongoURI)
     .then(db => console.log('Db connected'))
     .catch(err => console.log(err))
+    mongoose.connection.on('error',(err)=>{
+        throw err;
+        process.exit(1);
+      })
+
+app.use(session({
+    secret: 'borasa',
+    resave: true,
+    saveUninitialized: true,
+    store: new MongoStore({ url: mongoURI, autoReconnect:true })
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({extended:true}));
 
 // import routes
 const indexRoutes = require('./routes/index');
