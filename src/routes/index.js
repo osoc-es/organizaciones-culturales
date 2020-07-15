@@ -12,9 +12,9 @@ const mongoose = require('mongoose');
 const Organization = require('../models/Organization');
 const Credentials = require('../models/Credential');
 
-const bodyparser= require('body-parser');
-const passport= require('passport');
-const passportConfig= require('../config/passport');
+const bodyparser = require('body-parser');
+const passport = require('passport');
+const passportConfig = require('../config/passport');
 
 const upload = multer({
     limits: {
@@ -28,32 +28,58 @@ const upload = multer({
     }
 });
 
+
 router.post('/create-event', async (req, res) => {
 
-    try{
-    const event = new Event({title: req.body.title, 
-        max_capacity: req.body.max_capacity,
-        price: req.body.price,
-        tags: req.body.tags,
-        reviews:req.body.reviews,
-        localization: req.body.localization});
+    try {
 
-    await event.save();
 
-    const image  = new Image({ismap : true,
-    photo : req.body.blueprint,
-    foreingKey: event});
-    await image.save();
+        console.log(req.body.category)
 
-    const image2  = new Image({ismap : false,
-        photo : req.body.image,
-        foreingKey: event});
+        let category_index;
+        for (var i = 0; i < Categories.size; ++i) {
+            if (Categories.get(i) == req.body.category) {
+                category_index = i;
+                break;
+            }
+        }
 
-        await image2.save();
+        var tags_array = req.body.tags.split(" ");
+
+
+        const event = new Event({
+            title: req.body.title,
+            max_capacity: req.body.max_capacity,
+            price: req.body.price,
+            category: category_index,
+            tags: tags_array,
+            localization: req.body.localization,
+            extraInfo: req.body.extra_info
+            // falta target y web
+        });
+
+        var evets_per_category = {
+            cat0: await Event.find({ "category": 0 }),
+            cat1: await Event.find({ "category": 1 }),
+            cat2: await Event.find({ "category": 2 }),
+            cat3: await Event.find({ "category": 3 })
+        };
+
+        // var evets_per_category = new Array();
+
+        // for (let i = 0; i < Categories; ++i) {
+        //     events_per_category.push(await Event.find({ "category": i }));
+        // }
+
+        res.send(evets_per_category)
+
+        await event.save();
+
+        // TODO
+        res.redirect('/home', { evets_per_category })
 
     }
-    catch(e)
-    {
+    catch (e) {
         console.log("error");
     }
 
@@ -102,6 +128,12 @@ router.get('/photos', async (req, res) => {
 //         res.status(400).send({ get_error: 'Error while getting photo.' });
 //     }
 // });
+
+// router.get('/', async (req, res) => {
+//     const cine_events = await Event.find({});
+//     //activities.find(activity => activity.Categoria == )
+//     res.render('home', { activities, Categories })
+// })
 
 router.get('/', (req, res) => {
     const categories = Categories;
@@ -162,20 +194,21 @@ const db = mongoose.connection;
 
 //Inicio de la app
 
-router.get('/', (req,res)=>{
-    req.session.cred=req.session.cuenta ? req.session.cuenta+1:1;
+router.get('/', (req, res) => {
+    req.session.cred = req.session.cuenta ? req.session.cuenta + 1 : 1;
     //res.redirect('/logueado');
-  });
-  
-  const controladorCred=require('../Drivers/cred');
-  router.post('/signupUser',controladorCred.postSignupUser);
-  router.post('/signupOrganizacion',controladorCred.postSignupOrg);
-  router.post('/login',controladorCred.postLogin);
-  router.get('/logout',passportConfig.estaAutenticado,controladorCred.logout);
-  
-  router.get('/usuarioInfo',passportConfig.estaAutenticado,(req,res)=>{
-  res.json(req.User);}
-  )
+});
+
+const controladorCred = require('../Drivers/cred');
+router.post('/signupUser', controladorCred.postSignupUser);
+router.post('/signupOrganizacion', controladorCred.postSignupOrg);
+router.post('/login', controladorCred.postLogin);
+router.get('/logout', passportConfig.estaAutenticado, controladorCred.logout);
+
+router.get('/usuarioInfo', passportConfig.estaAutenticado, (req, res) => {
+    res.json(req.User);
+}
+)
 /*
 router.get('/', (req, res) => {
     let sess = req.session;
@@ -244,7 +277,7 @@ router.post('/user/login', async (req, res) => {
     } else {
         try {
             const doc = (await cursor).pop();
-            console.log(doc.password);           
+            console.log(doc.password);
 
             if (await bcrypt.compare(req.body.password, doc.password)) {
                 console.log("contraseña correcta");
