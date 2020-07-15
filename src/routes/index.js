@@ -12,9 +12,9 @@ const mongoose = require('mongoose');
 const Organization = require('../models/Organization');
 const Credentials = require('../models/Credential');
 
-const bodyparser= require('body-parser');
-const passport= require('passport');
-const passportConfig= require('../config/passport');
+const bodyparser = require('body-parser');
+const passport = require('passport');
+const passportConfig = require('../config/passport');
 
 const upload = multer({
     limits: {
@@ -28,32 +28,60 @@ const upload = multer({
     }
 });
 
+
 router.post('/create-event', async (req, res) => {
 
-    try{
-    const event = new Event({title: req.body.title, 
-        max_capacity: req.body.max_capacity,
-        price: req.body.price,
-        tags: req.body.tags,
-        reviews:req.body.reviews,
-        localization: req.body.localization});
+    try {
 
-    await event.save();
 
-    const image  = new Image({ismap : true,
-    photo : req.body.blueprint,
-    foreingKey: event});
-    await image.save();
+        console.log(req.body.category)
 
-    const image2  = new Image({ismap : false,
-        photo : req.body.image,
-        foreingKey: event});
+        let category_index;
+        for (var i = 0; i < Categories.size; ++i) {
+            if (Categories.get(i) == req.body.category) {
+                category_index = i;
+                break;
+            }
+        }
 
-        await image2.save();
+        var tags_array = req.body.tags.split(" ");
+
+
+        const event = new Event({
+            title: req.body.title,
+            max_capacity: req.body.max_capacity,
+            price: req.body.price,
+            category: category_index,
+            tags: tags_array,
+            localization: req.body.localization,
+            extraInfo: req.body.extra_info
+            // falta target y web
+        });
+
+        await event.save();
+
+        var evets_per_category = [
+            await Event.find({ "category": 0 }),
+            await Event.find({ "category": 1 }),
+            await Event.find({ "category": 2 }),
+            await Event.find({ "category": 3 })
+        ];
+
+        // No funca
+        // var evets_per_category = new Array();
+        // for (let i = 0; i < Categories; ++i) {
+        //     events_per_category.push(await Event.find({ "category": i }));
+        // }
+
+
+
+
+        res.send(evets_per_category)
+        // TODO
+        res.redirect('/home', { evets_per_category })
 
     }
-    catch(e)
-    {
+    catch (e) {
         console.log("error");
     }
 
@@ -103,6 +131,12 @@ router.get('/photos', async (req, res) => {
 //     }
 // });
 
+// router.get('/', async (req, res) => {
+//     const cine_events = await Event.find({});
+//     //activities.find(activity => activity.Categoria == )
+//     res.render('home', { activities, Categories })
+// })
+
 router.get('/', (req, res) => {
     const categories = Categories;
     res.render('index', { categories })
@@ -114,7 +148,11 @@ router.get('/home', async (req, res) => {
     res.render('home', { activities, Categories })
 })
 
-
+router.get('/home_user', async (req, res) => {
+    const activities = await Event.find();
+    //activities.find(activity => activity.Categoria == )
+    res.render('home_user', { activities, Categories })
+})
 
 router.get('/get', (req, res) => {
     res.render('index')
@@ -128,6 +166,10 @@ router.get('/settings', (req, res) => {
     res.render('settings')
 })
 
+router.get('/registro', (req, res) => {
+    res.render('registro')
+})
+
 router.get('/RegistroEmpresa', (req, res) => {
     res.render('RegistroEmpresa')
 })
@@ -138,6 +180,10 @@ router.get('/evento', (req, res) => {
 
 router.get('/RegistroEmpresa2', (req, res) => {
     res.render('RegistroEmpresa2')
+})
+
+router.get('/page3', (req, res) => {
+    res.render('page3')
 })
 
 module.exports = router;
@@ -162,20 +208,42 @@ const db = mongoose.connection;
 
 //Inicio de la app
 
-router.get('/', (req,res)=>{
-    req.session.cred=req.session.cuenta ? req.session.cuenta+1:1;
+router.get('/', (req, res) => {
+    req.session.cred = req.session.cuenta ? req.session.cuenta + 1 : 1;
     //res.redirect('/logueado');
-  });
-  
-  const controladorCred=require('../Drivers/cred');
-  router.post('/signupUser',controladorCred.postSignupUser);
-  router.post('/signupOrganizacion',controladorCred.postSignupOrg);
-  router.post('/login',controladorCred.postLogin);
-  router.get('/logout',passportConfig.estaAutenticado,controladorCred.logout);
-  
-  router.get('/usuarioInfo',passportConfig.estaAutenticado,(req,res)=>{
-  res.json(req.User);}
-  )
+});
+
+const controladorCred = require('../Drivers/cred');
+const { db } = require('../models/Image');
+router.post('/signupUser', controladorCred.postSignupUser);
+router.post('/signupOrganizacion', controladorCred.postSignupOrg);
+router.post('/login', controladorCred.postLogin);
+router.get('/logout', passportConfig.estaAutenticado, controladorCred.logout);
+
+router.get('/usuarioInfo', passportConfig.estaAutenticado, (req, res) => {
+    res.json(req.User);
+}
+)
+
+router.get('/search', (req, res) => {
+    //var titulo = req.body.title.toLowerCase();
+    if (req.body.target == null && req.body.category == null) {
+        var query = { title: /req.body.title/ };
+    }
+    else if (req.body.edad == null) {
+        var query = { title:  /req.body.title/, category: req.body.category };
+    }
+    else if (req.body.category == null) {
+        var query = { title:  /req.body.title/, target: { $gte: req.body.edad } };
+    }
+    else {
+        var query = { title:  /req.body.title/, target: { $gte: req.body.edad }, category: req.body.category };
+    }
+    const doc = Event.find(query);
+    console.log(doc);
+    res.jsonp(doc);
+})
+
 /*
 router.get('/', (req, res) => {
     let sess = req.session;
@@ -244,7 +312,7 @@ router.post('/user/login', async (req, res) => {
     } else {
         try {
             const doc = (await cursor).pop();
-            console.log(doc.password);           
+            console.log(doc.password);
 
             if (await bcrypt.compare(req.body.password, doc.password)) {
                 console.log("contraseña correcta");
