@@ -67,6 +67,26 @@ router.post('/create-event', async (req, res) => {
             await Event.find({ "category": 3 })
         ];
 
+        var cine_imgs =
+            [
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Sala_de_cine.jpg/800px-Sala_de_cine.jpg",
+                "https://upload.wikimedia.org/wikipedia/commons/8/8d/Cine_Teatro_L%C3%A1zaro_Urd%C3%ADn_desde_las_butacas.jpg",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQOjKlGKgB7NTPnEzpas1oDOWkvUm2YfuF32g&usqp=CAU",
+                "https://cdn.pixabay.com/photo/2019/04/23/08/49/movie-4148841_1280.jpg",
+                "https://upload.wikimedia.org/wikipedia/commons/1/1b/Cine_Ideal_%28Madrid%29_01.jpg"
+            ]
+
+        // Add random images to cinemas
+        evets_per_category.forEach(cat => {
+            cat.forEach(ev => {
+                if (ev.category == 0) // Cinemas
+                    ev.main_picture = cine_imgs[Math.floor(Math.random() * cine_imgs.length)];
+
+            });
+        });
+
+
+
         // No funca
         // var evets_per_category = new Array();
         // for (let i = 0; i < Categories; ++i) {
@@ -143,12 +163,74 @@ router.get('/', (req, res) => {
 })
 
 router.get('/home', async (req, res) => {
-    const activities = await Event.find();
-    //activities.find(activity => activity.Categoria == )
-    res.render('home', { activities, Categories })
+
+    var evets_per_category = [
+        await Event.find({ "category": 0 }),
+        await Event.find({ "category": 1 }),
+        await Event.find({ "category": 2 }),
+        await Event.find({ "category": 3 })
+    ];
+
+    var cine_imgs =
+        [
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Sala_de_cine.jpg/800px-Sala_de_cine.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/8/8d/Cine_Teatro_L%C3%A1zaro_Urd%C3%ADn_desde_las_butacas.jpg",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQOjKlGKgB7NTPnEzpas1oDOWkvUm2YfuF32g&usqp=CAU",
+            "https://cdn.pixabay.com/photo/2019/04/23/08/49/movie-4148841_1280.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/1/1b/Cine_Ideal_%28Madrid%29_01.jpg"
+        ];
+
+    var teatro_imgs =
+        [
+            "https://p1.pxfuel.com/preview/259/321/186/teatro-mask-carnival-masquerade-curtain-the-venetian.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/0/07/Gustavo_Santaolalla_performance_Teatro_de_la_Ciudad_%2844930112281%29.jpg",
+            "https://cdn.pixabay.com/photo/2015/08/01/04/45/joy-869958_960_720.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/4/4f/Del_teatro_inclusivo_a_una_traca_final_de_conciertos_para_el_cierre_de_San_Isidro_10.jpg",
+            "https://live.staticflickr.com/7880/32628488737_79128e06c5_b.jpg"
+        ];
+
+
+    var gastronomia_imgs =
+        [
+            "https://upload.wikimedia.org/wikipedia/commons/e/e8/Restaurante-tablao_Villa-Rosa_%28Madrid%29_04.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/c/ca/Madrid_-_Carrera_de_San_Jer%C3%B3nimo%2C_Restaurante_La_Catedral_04.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Casa_Bot%C3%ADn-Madrid-2009.jpg/1280px-Casa_Bot%C3%ADn-Madrid-2009.jpg",
+            "https://cdn.pixabay.com/photo/2014/04/23/11/37/rooftop-restaurant-330474_960_720.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Bar-restaurante_del_centro_de_Madrid%2C_2016.jpg/640px-Bar-restaurante_del_centro_de_Madrid%2C_2016.jpg"
+        ];
+
+
+
+    var museo_imgs =
+        [
+            "https://upload.wikimedia.org/wikipedia/commons/2/2c/Galer%C3%ADa_Museo_del_Carmen.jpg",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeGHLpMDD0oRVjrH_ucnG0VM7CF0OLHX6CpSn_N4RxbDd7m0Mb&s",
+            "https://upload.wikimedia.org/wikipedia/commons/7/76/Museo_de_la_mujer.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/2/21/Museo_Arqueol%C3%B3gico_Regional_CAM.JPG",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfamUDm2js2JM09NkP358Gokr1dC9QfXyasdnPN9MitT8cac8&s",
+            "https://upload.wikimedia.org/wikipedia/commons/0/0c/Interior_Museo_Egipcio_de_Barcelona_colecci%C3%B3n_permanente.jpg"
+        ];
+
+
+    // Add random images to cinemas
+    evets_per_category.forEach(cat => {
+        cat.forEach(ev => {
+            if (ev.category == 0) // Cinemas
+                ev.main_picture = cine_imgs[Math.floor(Math.random() * cine_imgs.length)];
+            else if (ev.category == 1) // Teatro
+                ev.main_picture = teatro_imgs[Math.floor(Math.random() * teatro_imgs.length)];
+            else if (ev.category == 2) // Gastronomia
+                ev.main_picture = gastronomia_imgs[Math.floor(Math.random() * gastronomia_imgs.length)];
+            else if (ev.category == 3) // Museos
+                ev.main_picture = museo_imgs[Math.floor(Math.random() * museo_imgs.length)];
+
+        });
+
+
+
+        res.render('home', { evets_per_category, Categories })
+    })
 })
-
-
 
 router.get('/get', (req, res) => {
     res.render('index')
@@ -181,7 +263,7 @@ module.exports = router;
 /*mongoose.connect('mongodb://localhost/session')
   .then(db => console.log('Db connected'))
   .catch(err => console.log(err))
-
+ 
 mongoose.Promise = global.Promise;
 const db = mongoose.connection;
 */
@@ -328,4 +410,5 @@ router.get('/logout', (req, res) => {
         res.redirect('/');
     });
 
-});*/
+});
+*/
