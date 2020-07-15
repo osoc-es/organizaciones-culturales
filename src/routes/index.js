@@ -148,7 +148,11 @@ router.get('/home', async (req, res) => {
     res.render('home', { activities, Categories })
 })
 
-
+router.get('/home_user', async (req, res) => {
+    const activities = await Event.find();
+    //activities.find(activity => activity.Categoria == )
+    res.render('home_user', { activities, Categories })
+})
 
 router.get('/get', (req, res) => {
     res.render('index')
@@ -162,6 +166,10 @@ router.get('/settings', (req, res) => {
     res.render('settings')
 })
 
+router.get('/registro', (req, res) => {
+    res.render('registro')
+})
+
 router.get('/RegistroEmpresa', (req, res) => {
     res.render('RegistroEmpresa')
 })
@@ -172,6 +180,10 @@ router.get('/evento', (req, res) => {
 
 router.get('/RegistroEmpresa2', (req, res) => {
     res.render('RegistroEmpresa2')
+})
+
+router.get('/page3', (req, res) => {
+    res.render('page3')
 })
 
 module.exports = router;
@@ -203,40 +215,34 @@ router.get('/', (req, res) => {
 
 const controladorCred = require('../Drivers/cred');
 const { db } = require('../models/Image');
-router.post('/signupUser', controladorCred.postSignupUser);
-router.post('/signupOrganizacion', controladorCred.postSignupOrg);
-router.post('/login', controladorCred.postLogin);
-router.get('/logout', passportConfig.estaAutenticado, controladorCred.logout);
+  router.post('/signupUser',controladorCred.postSignupUser);
+  router.post('/signupOrganizacion',controladorCred.postSignupOrg);
+  router.post('/login',controladorCred.postLogin);
+  router.get('/logout',passportConfig.estaAutenticado,controladorCred.logout);
+  
+  router.get('/usuarioInfo',passportConfig.estaAutenticado,(req,res)=>{
+  res.json(req.User);}
+  )
 
-router.get('/usuarioInfo', passportConfig.estaAutenticado, (req, res) => {
-    res.json(req.User);
-}
-)
+  router.post('/search',(req,res)=>{
+      var  aux=req.body.title;
+      var titulo=aux.toLowerCase();
+        if(req.body.edad==null && req.body.category==null){
+            var query={title:/titulo/};
+        }
+            else if(req.body.edad==null)    {
+                var query={title:/titulo/,category:req.body.category};
+            }
+                else if(req.body.category==null){
+                    var query={title:/titulo/,target:{$gte:req.body.edad}};
+                }
+                else{
+                    var query={title:/titulo/,target:{$gte:req.body.edad},category:req.body.category};
+                }
+        const doc=Event.find(query);    
 
-router.post('/search',(req,res)=>{
-    var aux = req.body.title;
-    console.log(aux);
-    var titulo=aux.toLowerCase();
-      if(req.body.target==null && req.body.category==null){
-          var query={title:/titulo/};
-      }
-          else if(req.body.edad==null)    {
-              var query={title:/titulo/,category:req.body.category};
-          }
-              else if(req.body.category==null){
-                  var query={title:/titulo/,target:{$gte:req.body.target}};
-              }
-              else{
-                  var query={title:/titulo/,target:{$gte:req.body.edad},category:req.body.category};
-              }
-      const doc=Event.find(query);    
-      doc.each(function(err, doc1) {
-
-          console.log(doc1);
-           
-      });
-      res.render('busqueda',doc) ;  
-});
+        res.render('busqueda',doc) ;  
+  });
 
 /*
 router.get('/', (req, res) => {
