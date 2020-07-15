@@ -1,21 +1,23 @@
 <nav style="padding: 0ch !important; background-color: black !important;" class="navbar navbar-dark bg-dark">
     <span class="navbar-brand mb-0 h1"></span>
   
-    <form class="form-inline" action="?" method="POST">
+    <form class="form-inline" action="?" method="GET">
       <button class="btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#search"
         aria-expanded="false" name="search"><i class="fas fa-search"></i></button>
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="sign_in"><i class="fas fa-sign-in-alt"></i>
-        Sign in</button>
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="sign_up"><i class="fas fa-sign-in-alt"></i>
-        Sign up</button>
+      <a class="btn btn-outline-success my-2 my-sm-0" href="/inicio_sesion" role="button">Sign In</a>
+      <a class="btn btn-outline-success my-2 my-sm-0" href="/registro" role="button">Sign Up</a>
   
     </form>
   </nav>
   <div class="collapse" id="search">
-    <form class="form" action="/borosa" method="POST">
+<<<<<<< HEAD
+    <form class="form" action="/search" method="POST">
+=======
+    <form class="form-inline" action="/search" method="POST">
+>>>>>>> f83736f93ed6b74835c7c34b44e5d75f49aa3ac5
         <div class="card card-body">
             <div class="btn-group mr-2" role="group" aria-label="First group">
-                <input class="form-control col-11" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control col-11" type="search" placeholder="Search" aria-label="Search" name="title">
                 <button type="submit" class="btn btn-secondary">search</button>
               </div>
               <div class="form-group">
@@ -23,6 +25,7 @@
                     <div class="col-6">
                         <label for="categoryFormControlSelect">Categoria</label>
                         <select class="form-control" id="categoryFormControlSelect" name="category">
+                            <option></option>
                             <%for(var i = 0; i < Categories.size;i++){%>
                                 <option><%=Categories.get(i) %></option>
                                 <%}%>
@@ -31,6 +34,7 @@
                     <div class="col-6">
                         <label for="targetFormControlSelect">Traget</label>
                         <select class="form-control" id="targetFormControlSelect" name="target">
+                            <option></option>
                             <%for(var i = 0; i < 100 ;i++){%>
                                 <option><%=i %></option>
                                 <%}%>

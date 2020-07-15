@@ -199,7 +199,11 @@ router.get('/home', async (req, res) => {
             "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Bar-restaurante_del_centro_de_Madrid%2C_2016.jpg/640px-Bar-restaurante_del_centro_de_Madrid%2C_2016.jpg"
         ];
 
-
+router.get('/home_user', async (req, res) => {
+    const activities = await Event.find();
+    //activities.find(activity => activity.Categoria == )
+    res.render('home_user', { activities, Categories })
+})
 
     var museo_imgs =
         [
@@ -244,6 +248,10 @@ router.get('/settings', (req, res) => {
     res.render('settings')
 })
 
+router.get('/registro', (req, res) => {
+    res.render('registro')
+})
+
 router.get('/RegistroEmpresa', (req, res) => {
     res.render('RegistroEmpresa')
 })
@@ -254,6 +262,10 @@ router.get('/evento', (req, res) => {
 
 router.get('/RegistroEmpresa2', (req, res) => {
     res.render('RegistroEmpresa2')
+})
+
+router.get('/page3', (req, res) => {
+    res.render('page3')
 })
 
 module.exports = router;
@@ -285,34 +297,34 @@ router.get('/', (req, res) => {
 
 const controladorCred = require('../Drivers/cred');
 const { db } = require('../models/Image');
-router.post('/signupUser', controladorCred.postSignupUser);
-router.post('/signupOrganizacion', controladorCred.postSignupOrg);
-router.post('/login', controladorCred.postLogin);
-router.get('/logout', passportConfig.estaAutenticado, controladorCred.logout);
+  router.post('/signupUser',controladorCred.postSignupUser);
+  router.post('/signupOrganizacion',controladorCred.postSignupOrg);
+  router.post('/login',controladorCred.postLogin);
+  router.get('/logout',passportConfig.estaAutenticado,controladorCred.logout);
+  
+  router.get('/usuarioInfo',passportConfig.estaAutenticado,(req,res)=>{
+  res.json(req.User);}
+  )
 
-router.get('/usuarioInfo', passportConfig.estaAutenticado, (req, res) => {
-    res.json(req.User);
-}
-)
+  router.post('/search',(req,res)=>{
+      var  aux=req.body.title;
+      var titulo=aux.toLowerCase();
+        if(req.body.edad==null && req.body.category==null){
+            var query={title:/titulo/};
+        }
+            else if(req.body.edad==null)    {
+                var query={title:/titulo/,category:req.body.category};
+            }
+                else if(req.body.category==null){
+                    var query={title:/titulo/,target:{$gte:req.body.edad}};
+                }
+                else{
+                    var query={title:/titulo/,target:{$gte:req.body.edad},category:req.body.category};
+                }
+        const doc=Event.find(query);    
 
-router.get('/search', (req, res) => {
-    var titulo = req.body.title.toLowerCase();
-    if (req.body.edad == null && req.body.category == null) {
-        var query = { title: /titulo/ };
-    }
-    else if (req.body.edad == null) {
-        var query = { title: /titulo/, category: req.body.category };
-    }
-    else if (req.body.category == null) {
-        var query = { title: /titulo/, target: { $gte: req.body.edad } };
-    }
-    else {
-        var query = { title: /titulo/, target: { $gte: req.body.edad }, category: req.body.category };
-    }
-    const doc = Event.find(query);
-    console.log(doc);
-    res.jsonp(doc);
-})
+        res.render('busqueda',doc) ;  
+  });
 
 /*
 router.get('/', (req, res) => {
