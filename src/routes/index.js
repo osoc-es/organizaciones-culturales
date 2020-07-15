@@ -214,18 +214,18 @@ router.get('/usuarioInfo', passportConfig.estaAutenticado, (req, res) => {
 )
 
 router.get('/search', (req, res) => {
-    var titulo = req.body.title.toLowerCase();
-    if (req.body.edad == null && req.body.category == null) {
-        var query = { title: /titulo/ };
+    //var titulo = req.body.title.toLowerCase();
+    if (req.body.target == null && req.body.category == null) {
+        var query = { title: /req.body.title/ };
     }
     else if (req.body.edad == null) {
-        var query = { title: /titulo/, category: req.body.category };
+        var query = { title:  /req.body.title/, category: req.body.category };
     }
     else if (req.body.category == null) {
-        var query = { title: /titulo/, target: { $gte: req.body.edad } };
+        var query = { title:  /req.body.title/, target: { $gte: req.body.edad } };
     }
     else {
-        var query = { title: /titulo/, target: { $gte: req.body.edad }, category: req.body.category };
+        var query = { title:  /req.body.title/, target: { $gte: req.body.edad }, category: req.body.category };
     }
     const doc = Event.find(query);
     console.log(doc);

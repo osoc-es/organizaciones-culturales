@@ -12,10 +12,10 @@
     </form>
   </nav>
   <div class="collapse" id="search">
-    <form class="form" action="/borosa" method="POST">
+    <form class="form" action="/search" method="GET">
         <div class="card card-body">
             <div class="btn-group mr-2" role="group" aria-label="First group">
-                <input class="form-control col-11" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control col-11" type="search" placeholder="Search" aria-label="Search" name="title">
                 <button type="submit" class="btn btn-secondary">search</button>
               </div>
               <div class="form-group">
@@ -23,6 +23,7 @@
                     <div class="col-6">
                         <label for="categoryFormControlSelect">Categoria</label>
                         <select class="form-control" id="categoryFormControlSelect" name="category">
+                            <option></option>
                             <%for(var i = 0; i < Categories.size;i++){%>
                                 <option><%=Categories.get(i) %></option>
                                 <%}%>
@@ -31,6 +32,7 @@
                     <div class="col-6">
                         <label for="targetFormControlSelect">Traget</label>
                         <select class="form-control" id="targetFormControlSelect" name="target">
+                            <option></option>
                             <%for(var i = 0; i < 100 ;i++){%>
                                 <option><%=i %></option>
                                 <%}%>
