@@ -213,24 +213,30 @@ router.get('/usuarioInfo', passportConfig.estaAutenticado, (req, res) => {
 }
 )
 
-router.get('/search', (req, res) => {
-    //var titulo = req.body.title.toLowerCase();
-    if (req.body.target == null && req.body.category == null) {
-        var query = { title: /req.body.title/ };
-    }
-    else if (req.body.edad == null) {
-        var query = { title:  /req.body.title/, category: req.body.category };
-    }
-    else if (req.body.category == null) {
-        var query = { title:  /req.body.title/, target: { $gte: req.body.edad } };
-    }
-    else {
-        var query = { title:  /req.body.title/, target: { $gte: req.body.edad }, category: req.body.category };
-    }
-    const doc = Event.find(query);
-    console.log(doc);
-    res.jsonp(doc);
-})
+router.post('/search',(req,res)=>{
+    var aux = req.body.title;
+    console.log(aux);
+    var titulo=aux.toLowerCase();
+      if(req.body.target==null && req.body.category==null){
+          var query={title:/titulo/};
+      }
+          else if(req.body.edad==null)    {
+              var query={title:/titulo/,category:req.body.category};
+          }
+              else if(req.body.category==null){
+                  var query={title:/titulo/,target:{$gte:req.body.target}};
+              }
+              else{
+                  var query={title:/titulo/,target:{$gte:req.body.edad},category:req.body.category};
+              }
+      const doc=Event.find(query);    
+      doc.each(function(err, doc1) {
+
+          console.log(doc1);
+           
+      });
+      res.render('busqueda',doc) ;  
+});
 
 /*
 router.get('/', (req, res) => {
