@@ -58,6 +58,8 @@ router.post('/create-event', async (req, res) => {
             // falta target y web
         });
 
+        await event.save();
+
         var evets_per_category = {
             cat0: await Event.find({ "category": 0 }),
             cat1: await Event.find({ "category": 1 }),
@@ -65,16 +67,16 @@ router.post('/create-event', async (req, res) => {
             cat3: await Event.find({ "category": 3 })
         };
 
+        // No funca
         // var evets_per_category = new Array();
-
         // for (let i = 0; i < Categories; ++i) {
         //     events_per_category.push(await Event.find({ "category": i }));
         // }
 
+
+
+
         res.send(evets_per_category)
-
-        await event.save();
-
         // TODO
         res.redirect('/home', { evets_per_category })
 
@@ -200,6 +202,7 @@ router.get('/', (req, res) => {
 });
 
 const controladorCred = require('../Drivers/cred');
+const { db } = require('../models/Image');
 router.post('/signupUser', controladorCred.postSignupUser);
 router.post('/signupOrganizacion', controladorCred.postSignupOrg);
 router.post('/login', controladorCred.postLogin);
@@ -209,6 +212,26 @@ router.get('/usuarioInfo', passportConfig.estaAutenticado, (req, res) => {
     res.json(req.User);
 }
 )
+
+router.get('/search', (req, res) => {
+    var titulo = req.body.title.toLowerCase();
+    if (req.body.edad == null && req.body.category == null) {
+        var query = { title: /titulo/ };
+    }
+    else if (req.body.edad == null) {
+        var query = { title: /titulo/, category: req.body.category };
+    }
+    else if (req.body.category == null) {
+        var query = { title: /titulo/, target: { $gte: req.body.edad } };
+    }
+    else {
+        var query = { title: /titulo/, target: { $gte: req.body.edad }, category: req.body.category };
+    }
+    const doc = Event.find(query);
+    console.log(doc);
+    res.jsonp(doc);
+})
+
 /*
 router.get('/', (req, res) => {
     let sess = req.session;

@@ -9,7 +9,7 @@ const passport= require('passport');
 const bodyparser= require('body-parser');
 
 const app = express();
-const mongoURI = 'mongodb://localhost/osoc-test';
+const mongoURI = 'mongodb://mongo:27017/mongo';//'mongodb://localhost/osoc-test';
 
 // connecting to db
 const conn = mongoose.createConnection(mongoURI);
