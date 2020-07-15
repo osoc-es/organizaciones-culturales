@@ -3,6 +3,7 @@ const Cred=require('../models/Credential');
 const Organizacion= require('../models/Organization');
 const Usuario= require('../models/User');
 const bcrypt=require('bcryptjs');
+const { render } = require('ejs');
 
 exports.postSignupOrg= async (req,res,next)=>{ //Se llamara desde otro lado dependiendo de que sea org o usuario
   const nuevaOrg= new Organizacion({
@@ -31,7 +32,8 @@ exports.postSignupOrg= async (req,res,next)=>{ //Se llamara desde otro lado depe
         }
         //nuevaOrg.save();
         //nuevoCred.save();
-        res.send("Usuario creado exitosamente");//Tambien aniadir enciar correo
+        //res.send("Usuario creado exitosamente");//Tambien aniadir enciar correo
+        res.redirect('/');
       })
     })
   }

@@ -10,7 +10,6 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const mongoose = require('mongoose');
 const Organization = require('../models/Organization');
-
 const Credentials = require('../models/Credential');
 
 const bodyparser= require('body-parser');
