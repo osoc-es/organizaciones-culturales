@@ -22,6 +22,8 @@ const EventSchema = new Schema({
         required: [true, 'Dime el precio']
     },
     category: Number,
+    main_picture: { type: mongoose.Schema.Types.ObjectId, ref: 'Image' },
+    pictures: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Image' }],
     tags: [String],
     reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }],
     description: String,

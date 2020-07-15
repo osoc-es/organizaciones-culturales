@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.mongoose.Schema;
+const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
   name: {
@@ -10,16 +10,13 @@ const UserSchema = new Schema({
     type:Number,
     required:true
   },
-  credentials :{
-    type:CredentialSchema,
-    required:true
-  },
-  localization: LocalizationSchema,
+
+  localization: { type: mongoose.Schema.Types.ObjectId, ref: 'Locations' },
   prefereneces: [Number],
-  profilePicture: {
+ /* profilePicture: {
       type: String,
       get: v => `${root}${v}`
-    }
+    }*/
 
 });
 
