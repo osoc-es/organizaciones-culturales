@@ -1,37 +1,62 @@
 <%- include('partials/_header') %>
 
   <nav style="padding: 0ch !important; background-color: black !important;" class="navbar navbar-dark bg-dark">
-    <span class="navbar-brand mb-0 h1"></span>
+    <span class="navbar-brand mb-0 h1"></span>  
     <form class="form-inline" action="?" method="POST">
       <button class="btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#search"
-        aria-expanded="false" name="search"><i class="fas fa-search"></i></button> 
-      <div class="dropdown">
-        <button class="btn btn--outline-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="far fa-user text-success" style="font-size: 8mm;"></i>
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="/settings">Configuración</a>
-          <a class="dropdown-item" href="#">Mis eventos</a>
-          <a class="dropdown-item" href="/home">Salir</a>
-        </div>
-      </div>
+        aria-expanded="false" name="search"><i class="fas fa-search"></i></button>
+       <div class="dropleft">
+          <button class="btn btn--outline-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="far fa-user text-success" style="font-size: 8mm;"></i>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="/settings">Configuración</a>
+            <a class="dropdown-item" href="#">Mis eventos</a>
+            <a class="dropdown-item" href="/home">Salir</a>
+          </div>
+       </div>
     </form>
   </nav>
   <div class="collapse" id="search">
-    <div class="card card-body">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-    </div>
+    <form class="form" action="/search" method="GET">
+        <div class="card card-body">
+            <div class="btn-group mr-2" role="group" aria-label="First group">
+                <input class="form-control col-11" type="search" placeholder="Search" aria-label="Search" name="title">
+                <button type="submit" class="btn btn-secondary">search</button>
+              </div>
+              <div class="form-group">
+                  <div class="row">
+                    <div class="col-6">
+                        <label for="categoryFormControlSelect">Categoria</label>
+                        <select class="form-control" id="categoryFormControlSelect" name="category">
+                            <option></option>
+                            <%for(var i = 0; i < Categories.size;i++){%>
+                                <option><%=Categories.get(i) %></option>
+                                <%}%>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <label for="targetFormControlSelect">Traget</label>
+                        <select class="form-control" id="targetFormControlSelect" name="target">
+                            <option></option>
+                            <%for(var i = 0; i < 100 ;i++){%>
+                                <option><%=i %></option>
+                                <%}%>
+                        </select>
+                    </div>
+                </div>
+              </div>
+        
+        </div>
+    </form>
   </div>
 
 
-  <br>
-  <br>
-
+  <br><br>
   <% for(var categories = 0; categories < Categories.size; ++categories){ %>
   <div class="d-flex justify-content-center">
     <h1><%= Categories.get(categories)%></h1>
   </div>
-
 
   <br>
   <div class="d-flex justify-content-center">
@@ -43,7 +68,7 @@
         <div class="carousel-item <%= i == 0 ? 'active' : '' %>">
 
           <div class="d-flex justify-content-left">
-            <% for(var z = 0; z < 5; ++z){ %>
+            <% for(var z = 0; z < 4; ++z){ %>
             <div class="card" style="margin-right: 2ch !important; width: 18rem;">
               <img src="..." class="card-img-top" alt="...">
               <div class="card-body">
