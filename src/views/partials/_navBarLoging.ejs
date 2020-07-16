@@ -1,8 +1,8 @@
-<nav style="padding: 0ch !important; background-color: black !important; z-index: 99 !important; position: fixed !important;  width: 100% !important;" class="navbar navbar-dark bg-dark">
+<nav id="searchBar" style="padding: 0ch !important; background-color: black !important; z-index: 99 !important; position: fixed !important;  width: 100% !important;" class="navbar navbar-dark bg-dark">
     <span class="navbar-brand mb-0 h1"></span>
   
     <form class="form-inline" action="?" method="GET">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#search"
+      <button class="btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#searchCollapse"
         aria-expanded="false" name="search"><i class="fas fa-search"></i></button>
       <a class="btn btn-outline-success my-2 my-sm-0" href="/inicio_sesion" role="button">Sign In</a>
       <a class="btn btn-outline-success my-2 my-sm-0" href="/registro" role="button">Sign Up</a>
@@ -10,7 +10,7 @@
     </form>
   </nav>
   <br>
-  <div class="collapse" id="search">
+  <div class="collapse" style=" z-index: 90 !important; position: fixed !important;  width: 100% !important;" id="searchCollapse">
     <form class="form" action="/search" method="POST">
         <div class="card card-body">
             <div class="btn-group mr-2" role="group" aria-label="First group">
