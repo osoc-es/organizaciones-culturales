@@ -1,5 +1,5 @@
 <%- include('partials/_header') %>
-<br>
+
 
 <div class="d-flex justify-content-center">
     <div class="container">
@@ -13,17 +13,12 @@
                                 <div class="row">
                                     <div class="col-md">
                                         <div class="form-group">
-                                            <label for="exampleInputTitle">titulo</label>
+                                            <label for="exampleInputTitle">Titulo</label>
                                             <input type="text" class="form-control" placeholder="title" name="title">
-
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleInputDescription">descripcion</label>
-                                            <input type="text" class="form-control" row="3" placeholder="description"
-                                                name="description_event">
-
-
-
+                                            <label for="exampleInputDescription">Descripcion</label>
+                                            <input type="text" class="form-control" row="3" placeholder="description" name="description_event">
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputAforo">Aforo</label>
@@ -35,7 +30,7 @@
                                             <input type="text" class="form-control" placeholder="precio" name="price">
                                         </div>
                                         <div class="form-group">
-                                            <label for="categories_id">Caregorias</label>
+                                            <label for="categories_id">Categorias</label>
                                             <select class="form-control" id="categories_id" name="category">
                                                 <%for(var i = 0; i < categories.size;i++){%>
                                                 <option><%=categories.get(i) %></option>
@@ -46,13 +41,9 @@
                                             <label for="exampleInputPrice">Tags</label>
                                             <input type="text" class="form-control" placeholder="#tag" name="tags">
                                         </div>
-                                        
                                     </div>
                                     <div class = "col-md">
-                                        <div class="form-group">
-                                            <label for="exampleInputPrice">Reseñas</label>
-                                            <input type="text" class="form-control" placeholder="reseña" name="review">
-                                        </div>
+                                       
                                         <div class="form-group">
                                             <label for="exampleInputPrice">Dirección</label>
                                             <input type="text" class="form-control" placeholder="direccion" name="path">
@@ -63,13 +54,13 @@
                                                 name="extra_info">
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleInputPrice">Público Objetivo</label>
-                                            <input type="text" class="form-control" placeholder="edad:" name="target">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleInputPrice">web</label>
+                                            <label for="exampleInputPrice">Web</label>
                                             <input type="text" class="form-control" placeholder="www." name="web">
                                         </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPrice">Imagen</label>
+                                            <input type="text" name="main_picture" id="input-files" class="form-control" />
+                                        </div>       
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Create event</button>
@@ -77,37 +68,7 @@
                         </form>
                     </div>
                 </div>
-                <br>
-
-                <div class="card">
-                    <h5 class="card-header">Imagen</h5>
-                    <div class="card-body">
-                        <form action="/photo" method="POST">
-
-                            <div class="form-group">
-                                <label for="exampleInputPrice">Imagen</label>
-                                <input type="file" name="image" id="input-files" class="form-control-file border" />
-                            </div>       
-                                <button type="submit" class="btn btn-primary">Upload Image</button>
-                        </form>
-                    </div>
-                </div>
-                <br>
-
-                <div class="card">
-                    <h5 class="card-header">Plano</h5>
-                    <div class="card-body">
-                        <form action="/photo" method="POST">
-
-                            <div class="form-group">
-                                <label for="exampleInputPrice">Plano</label>
-                                <input type="file" name="blueprint" id="blueprint" class="form-control-file border" />
-                            </div>  
-                                <button type="submit" class="btn btn-primary">Upload blueprint</button>
-                        </form>
-                    </div>
-                </div>
-
+               
             </div>  
         </div>
     </div>

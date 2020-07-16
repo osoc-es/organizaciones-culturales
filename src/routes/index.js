@@ -243,6 +243,12 @@ router.get('/get', (req, res) => {
     res.render('index')
 })
 
+router.get('/home_user', async (req, res) => {
+    const activities = await Event.find();
+    //activities.find(activity => activity.Categoria == )
+    res.render('home_user', { activities, Categories })
+})
+
 router.get('/inicio_sesion', (req, res) => {
     res.render('inicio_sesion')
 })
@@ -317,24 +323,40 @@ router.get('/usuarioInfo', passportConfig.estaAutenticado, (req, res) => {
 }
 )
 
-router.post('/search', (req, res) => {
+router.post('/search',  async (req, res) => {
     var aux = req.body.title;
     var titulo = aux.toLowerCase();
     if (req.body.edad == null && req.body.category == null) {
-        var query = { title: /titulo/ };
+        var query = { title: req.body.title };
     }
     else if (req.body.edad == null) {
-        var query = { title: /titulo/, category: req.body.category };
+        var query = { title: req.body.title, category: req.body.category };
     }
     else if (req.body.category == null) {
-        var query = { title: /titulo/, target: { $gte: req.body.edad } };
+        var query = { title: req.body.title, target: { $gte: req.body.edad } };
     }
     else {
-        var query = { title: /titulo/, target: { $gte: req.body.edad }, category: req.body.category };
+        var query = { title: req.body.title, target: { $gte: req.body.edad }, category: req.body.category };
     }
-    const doc = Event.find(query);
+    //const doc = Event.filter(x=>x.title = query);
 
-    res.render('busqueda', doc);
+    console.log("------<>-----");
+    console.log(aux);
+    try
+    {
+        const doc2 =  await Event.findOne({"title": aux});
+        console.log("------------>");
+        console.log(doc2.title);
+
+    }catch (error) {
+        res.status(500).send({ get_error: 'Error while getting events.' });
+    }
+    
+
+       
+   
+
+    res.render('busqueda', {Categories  ,doc: doc2});
 });
 
 /*
