@@ -291,7 +291,7 @@ module.exports = router;
 /*mongoose.connect('mongodb://localhost/session')
   .then(db => console.log('Db connected'))
   .catch(err => console.log(err))
- 
+
 mongoose.Promise = global.Promise;
 const db = mongoose.connection;
 */
@@ -323,40 +323,56 @@ router.get('/usuarioInfo', passportConfig.estaAutenticado, (req, res) => {
 }
 )
 
-router.post('/search',  async (req, res) => {
+router.post('/search', async (req, res) => {
     var aux = req.body.title;
+
     var titulo = aux.toLowerCase();
-    if (req.body.edad == null && req.body.category == null) {
-        var query = { title: req.body.title };
+    //res.send(titulo)
+
+
+    var string_cat = (req.body.category)
+    var cat = -1;
+
+    if (string_cat == "CINE") {
+        cat = 0;
     }
-    else if (req.body.edad == null) {
-        var query = { title: req.body.title, category: req.body.category };
+    else if (string_cat == "TEATRO") {
+        cat = 1;
     }
-    else if (req.body.category == null) {
-        var query = { title: req.body.title, target: { $gte: req.body.edad } };
+    else if (string_cat == "GASTRONOMÍA") {
+        cat = 2;
+    }
+    else if (string_cat == "MUSEO") {
+        cat = 3;
+    }
+    else if (string_cat == "MÚSICA") {
+        cat = 4;
+    }
+
+
+
+    var regex = ".*";
+
+    var text = regex.concat(titulo).concat(regex);
+
+
+    let doc;
+    if (cat == -1) {
+        doc = await Event.find(
+            {
+                $or: [{ "title": { $regex: text } }, { "tags": { $regex: text } }]
+            })
     }
     else {
-        var query = { title: req.body.title, target: { $gte: req.body.edad }, category: req.body.category };
+        doc = await Event.find(
+            {
+                $or: [{ "title": { $regex: text }, category: cat }, { "tags": { $regex: text }, category: cat }]
+            })
+
     }
-    //const doc = Event.filter(x=>x.title = query);
 
-    console.log("------<>-----");
-    console.log(aux);
-    try
-    {
-        const doc2 =  await Event.findOne({"title": aux});
-        console.log("------------>");
-        console.log(doc2.title);
-
-    }catch (error) {
-        res.status(500).send({ get_error: 'Error while getting events.' });
-    }
-    
-
-       
-   
-
-    res.render('busqueda', {Categories  ,doc: doc2});
+    res.send(doc);
+    res.render('busqueda', { Categories, doc: doc });
 });
 
 /*
