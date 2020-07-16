@@ -1,6 +1,6 @@
 
 
-# CulturAppTivity  ![logo](https://github.com/osoc-es/organizaciones-culturales/blob/master/src/views/images/logo.png?raw=true){height="36px" width="36px"}.
+# CulturAppTivity <img src="https://github.com/osoc-es/organizaciones-culturales/blob/master/src/views/images/logo.png?raw=true" width="40">
 ***
 
 Desde nuestra organización creemos que la cultura es una de las cosas más importantes de las que podemos disfrutar. Por ello queremos ayudar tanto a las Organizaciones como a los usuarios a poder propagarla a través de nuestra web. Generando así un canal en el que los usuarios podrán encontrar espectáculos recomendados para ellos y las organizaciones poco conocidad podrán darse a conocer con mayor facilidad.
