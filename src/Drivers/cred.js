@@ -6,11 +6,13 @@ const bcrypt=require('bcryptjs');
 const { render } = require('ejs');
 
 exports.postSignupOrg= async (req,res,next)=>{ //Se llamara desde otro lado dependiendo de que sea org o usuario
+  try{
   const nuevaOrg= new Organizacion({
     name : req.body.name,
     telephone : req.body.telephone,
     webPage : req.body.webPage
   });
+
   const nuevoCred=new Cred({
     email : req.body.email,
     password : await bcrypt.hash(req.body.password, 10),
@@ -19,7 +21,7 @@ exports.postSignupOrg= async (req,res,next)=>{ //Se llamara desde otro lado depe
 
   Cred.findOne({email : req.body.email},(err, credsExistente)=>{
     if(credsExistente){
-      return res.status.send('Ya esta regisrado');
+      return res.send('Ya esta regisrado');
     }
     nuevaOrg.save();
     nuevoCred.save((err)=>{
@@ -32,17 +34,21 @@ exports.postSignupOrg= async (req,res,next)=>{ //Se llamara desde otro lado depe
         }
         //nuevaOrg.save();
         //nuevoCred.save();
-        //res.send("Usuario creado exitosamente");//Tambien aniadir enciar correo
+       // res.send("Usuario creado exitosamente");//Tambien aniadir enciar correo
         res.redirect('/');
       })
+
     })
   }
-
-
 )
+}
+catch(e){
+
+}
 };
 
 exports.postSignupUser= async (req,res,next)=>{ //Se llamara desde otro lado dependiendo de que sea org o usuario
+  try{
   const nuevoUser= new Usuario({
     name : req.body.name,
     age : req.body.age
@@ -55,7 +61,7 @@ exports.postSignupUser= async (req,res,next)=>{ //Se llamara desde otro lado dep
 
   Cred.findOne({email : req.body.email},(err, credsExistente)=>{
     if(credsExistente){
-      return res.status.send('Ya esta registrado');
+      return res.send('Ya esta registrado');
     }
     nuevoUser.save();
     nuevoCred.save((err)=>{
@@ -72,7 +78,9 @@ exports.postSignupUser= async (req,res,next)=>{ //Se llamara desde otro lado dep
       })
     })
   }
-)};
+)}
+catch(e){}
+}
 
 exports.postLogin=(req,res,next)=>{
   passport.authenticate('local',(err,cred,info)=>{
