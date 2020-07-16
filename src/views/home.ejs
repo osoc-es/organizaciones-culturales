@@ -20,6 +20,8 @@
   <h1>GASTRONOMÍA</h1>
   <% }else if(categories == 3){ %>
   <h1>MUSEO</h1>
+  <% }else if(categories == 4){ %>
+  <h1>MÚSICA</h1>
   <% }%>
 
 </div>
@@ -41,7 +43,8 @@
             <div class="card-body">
               <h5 class="card-title"><%= evets_per_category[categories][z].title%></h5>
               <p class="card-text"><%= evets_per_category[categories][z].body%></p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
+              <a href="/evento/<%=evets_per_category[categories][z]._id%>" method="POST" class="btn btn-primary">Go
+                somewhere</a>
             </div>
           </div>
           <%}%>

@@ -9,6 +9,7 @@ const session = require('express-session');
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const mongoose = require('mongoose');
+const { ObjectId } = require('mongodb');
 const Organization = require('../models/Organization');
 const Credentials = require('../models/Credential');
 
@@ -258,8 +259,15 @@ router.get('/RegistroEmpresa', (req, res) => {
     res.render('RegistroEmpresa')
 })
 
-router.get('/evento', (req, res) => {
-    res.render('evento')
+router.get('/evento/:event_id', async (req, res) => {
+    var event_id = req.params.event_id;
+    //res.send(event_id)
+    let event = await Event.findOne({ "_id": event_id });
+
+
+    console.log(event)
+    //res.send(event)
+    res.render('evento', { "event": event })
 })
 
 router.get('/RegistroEmpresa2', (req, res) => {
