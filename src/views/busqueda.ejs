@@ -4,19 +4,34 @@
 <br>
 <br>
 <br>
-<%=doc.length%>
 <div class="d-flex justify-content-center">
-
-  <div class="card" style="width: 18rem;">
-    <img src="..." class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-        content.</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
+    <div class="col-8">
+        <%for(let i=0;i < doc.length; ++i){%>
+      <div class="card">
+      <div class="card-header">
+          <a class="text-secondary" role="button" href=""><%- doc[i].title %></a>
+      </div>
+      <div class="card-body">
+        <img src="<%= doc[i].main_picture %>" class="card-img-top" alt="...">
+          <blockquote class="blockquote mb-0">
+          <a class="text-secondary" ><p class="text-break"><%- doc[i].description %></p></a>
+          <a class="text-secondary" ><p class="text-break"><%- doc[i].extraInfo %></p></a>
+          <a class="text-secondary" >
+                <% for(let z = 0; z < doc[i].tags.length; ++z){ %>
+                    <p class="text-break"><%- doc[i].tags[z] %></p>
+                <%}%>
+            </a>
+            <a class="text-secondary" ><p class="text-break">
+                <% if(doc[i].category == 0){%> CINE <%;}else if(doc[i].category == 1){%> TEATRO <%;}else if(doc[i].category == 2){%> GASTRONOMÍA <%;} 
+                else if(doc[i].category == 3){%> MUSEO <%;}else if(doc[i].category == 4){%> MÚSICA <%;}else{%> NONE <%;}%>
+            </a>
+            <a class="text-secondary" ><p class="text-break"><%- doc[i].price %></p></a>
+          <footer class="blockquote-footer">dirección: <cite title="Source Title"><%= doc[i].localization%></cite></footer>
+          </blockquote>
+      </div>
+      </div>
+      <%}%>
     </div>
-  </div>
-
 </div>
 
 

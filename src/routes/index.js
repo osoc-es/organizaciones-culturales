@@ -382,8 +382,6 @@ router.post('/search', async (req, res) => {
             })
 
     }
-
-    res.send(doc);
     res.render('busqueda', { Categories, doc: doc });
 });
 
