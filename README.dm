@@ -1,5 +1,4 @@
 
- <span style="font-family: "Times New Roman", Times, serif;">
 # CulturAppTivity  ![logo](https://github.com/osoc-es/organizaciones-culturales/blob/master/src/views/images/logo.png?raw=true){:height="36px" width="36px"}.
 ***
 
@@ -38,4 +37,3 @@ Para desarrollar el proyecto se ha usado:
 
 
 
-<span>
