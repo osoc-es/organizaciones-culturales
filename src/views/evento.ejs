@@ -1,56 +1,36 @@
-<!DOCTYPE html>
-<html lang="es">
+<%- include('partials/_header') %>
+<br>
+<br>
+<br>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CulturAppTivity</title>
-    <!-- BOOTSTRAP 4 -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <!-- GOOGLE FONTS -->
-    <link href="https://fonts.googleapis.com/css2?family=Barlow&display=swap" rel="stylesheet">
-    <!-- FONT AWESOME -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-
-    <style>
-        body {
-            font-family: 'Barlow', sans-serif;
-        }
-    </style>
-</head>
-
-<body>
-    <nav class="navbar mb-5 " style="background-color: black !important; height: 5rem;">
-        <img src="logo.png" class="mx-auto">
-    </nav>
-
-    <div class="container">
-        <img src="logo.png" class="mx-auto">
+    <div class="d-flex justify-content-center">
+        <div class="col-8">
+          <div class="card">
+          <div class="card-header">
+              <a class="text-secondary" role="button" href=""><%- event.title %></a>
+          </div>
+          <div class="card-body">
+            <img src="<%= event.main_picture %>" class="card-img-top" alt="...">
+              <blockquote class="blockquote mb-0">
+              <a class="text-secondary" ><p class="text-break"><%- event.description %></p></a>
+              <a class="text-secondary" ><p class="text-break"><%- event.extraInfo %></p></a>
+              <a class="text-secondary" >
+                    <% for(let i = 0; i < event.tags.length; ++i){ %>
+                        <p class="text-break"><%- event.tags[i] %></p>
+                    <%}%>
+                </a>
+                <a class="text-secondary" ><p class="text-break">
+                    <% if(event.category == 0){%> CINE <%;}else if(event.category == 1){%> TEATRO <%;}else if(event.category == 2){%> GASTRONOMÍA <%;} 
+                    else if(event.category == 3){%> MUSEO <%;}else if(event.category == 4){%> MÚSICA <%;}else{%> NONE <%;}%>
+                </a>
+                <a class="text-secondary" ><p class="text-break"><%- event.price %></p></a>
+              <footer class="blockquote-footer">dirección: <cite title="Source Title"><%= event.localization%></cite></footer>
+              </blockquote>
+          </div>
+          </div>
+        </div>
     </div>
 
-    <div class="container">
-
-        <h1 class="text-center"><%- event.title %></h1>
-
-        <div class="container">
-            <div class="row text-center">
-
-                <% for(let i = 0; i < event.tags.length; ++i){ %>
-
-                <h1><%= event.tags[i] %> </h1>
-                <%}%>
-                
-            </div>
-        </div>
-
-        <br>
-        <p>
-
-            <%- event %>
-                </p>
-            </div>
             <br><br><br>
 
             <div class="container">
@@ -66,10 +46,44 @@
                 </ul>
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        Aqui van las promociones
+                        <div class="d-flex justify-content-center">
+                            <h4>Promociones</h4>
+                            <%  for(let i = 0; i < event.promotions.length; i++){ %>
+                            <div class="col-8">
+                              <div class="card">
+                              <div class="card-header">
+                                  <a class="text-secondary" role="button" href=""><%- event.promotions[i].title%></a>
+                              </div>
+                              <div class="card-body">
+                                <img src="<%= event.promotions[i].picture %>" class="card-img-top" alt="...">
+                              </div>
+                              </div>
+                            </div>
+                            <%}%>
+                        </div>
+                    
                     </div>
                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                        Aqui van las reseñas
+                        <div class="d-flex justify-content-center">
+                            <h4>Reseñas</h4>
+                            <%  for(let i = 0; i < event.reviews.length; i++){ %>
+                            <div class="col-8">
+                              <div class="card">
+                              <div class="card-header">
+                                  <a class="text-secondary" role="button" href=""><%- event.reviews[i].title%></a>
+                              </div>
+                              <div class="card-body">
+                                <img src="<%= event.main_picture %>" class="card-img-top" alt="...">
+                                  <blockquote class="blockquote mb-0">
+                                  <a class="text-secondary" ><p class="text-break"><%- event.reviews[i].description %></p></a>
+                                  <a class="text-secondary" ><p class="text-break"><%- event.reviews[i].score %></p></a>
+                                
+                                  </blockquote>
+                              </div>
+                              </div>
+                            </div>
+                            <%}%>
+                        </div>
                     </div>
                 </div>
             </div>

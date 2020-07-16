@@ -163,16 +163,8 @@ router.get('/', (req, res) => {
     res.render('index', { categories })
 })
 
-router.get('/home', async (req, res) => {
 
-    var evets_per_category = [
-        await Event.find({ "category": 0 }),
-        await Event.find({ "category": 1 }),
-        await Event.find({ "category": 2 }),
-        await Event.find({ "category": 3 })
-    ];
-
-    var cine_imgs =
+var cine_imgs =
         [
             "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Sala_de_cine.jpg/800px-Sala_de_cine.jpg",
             "https://upload.wikimedia.org/wikipedia/commons/8/8d/Cine_Teatro_L%C3%A1zaro_Urd%C3%ADn_desde_las_butacas.jpg",
@@ -210,6 +202,18 @@ router.get('/home', async (req, res) => {
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfamUDm2js2JM09NkP358Gokr1dC9QfXyasdnPN9MitT8cac8&s",
             "https://upload.wikimedia.org/wikipedia/commons/0/0c/Interior_Museo_Egipcio_de_Barcelona_colecci%C3%B3n_permanente.jpg"
         ];
+
+
+router.get('/home', async (req, res) => {
+
+    var evets_per_category = [
+        await Event.find({ "category": 0 }),
+        await Event.find({ "category": 1 }),
+        await Event.find({ "category": 2 }),
+        await Event.find({ "category": 3 })
+    ];
+
+    
 
 
     // Add random images to cinemas
@@ -270,6 +274,14 @@ router.get('/evento/:event_id', async (req, res) => {
     //res.send(event_id)
     let event = await Event.findOne({ "_id": event_id });
 
+    if (event.category == 0) // Cinemas
+    event.main_picture = cine_imgs[Math.floor(Math.random() * cine_imgs.length)];
+else if (event.category == 1) // Teatro
+    event.main_picture = teatro_imgs[Math.floor(Math.random() * teatro_imgs.length)];
+else if (event.category == 2) // Gastronomia
+    event.main_picture = gastronomia_imgs[Math.floor(Math.random() * gastronomia_imgs.length)];
+else if (event.category == 3) // Museos
+    event.main_picture = museo_imgs[Math.floor(Math.random() * museo_imgs.length)];
 
     console.log(event)
     //res.send(event)
