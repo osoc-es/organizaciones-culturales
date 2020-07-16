@@ -199,11 +199,6 @@ router.get('/home', async (req, res) => {
             "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Bar-restaurante_del_centro_de_Madrid%2C_2016.jpg/640px-Bar-restaurante_del_centro_de_Madrid%2C_2016.jpg"
         ];
 
-router.get('/home_user', async (req, res) => {
-    const activities = await Event.find();
-    //activities.find(activity => activity.Categoria == )
-    res.render('home_user', { activities, Categories })
-})
 
     var museo_imgs =
         [
@@ -231,13 +226,19 @@ router.get('/home_user', async (req, res) => {
         });
 
 
-
+        //res.send({evets_per_category});
         res.render('home', { evets_per_category, Categories })
     })
 })
 
 router.get('/get', (req, res) => {
     res.render('index')
+})
+
+router.get('/home_user', async (req, res) => {
+    const activities = await Event.find();
+    //activities.find(activity => activity.Categoria == )
+    res.render('home_user', { activities, Categories })
 })
 
 router.get('/inicio_sesion', (req, res) => {

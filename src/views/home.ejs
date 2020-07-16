@@ -4,10 +4,9 @@
 
 <br>
 <br>
-<%= evets_per_category.size()%>
-<% for(var categories = 0; categories < Categories.size; ++categories){ %>
+<% for(var categories = 0; categories < evets_per_category.size; ++categories){ %>
 <div class="d-flex justify-content-center">
-  <h1><%= Categories.get(categories)%></h1>
+ 
 </div>
 
 
@@ -23,11 +22,10 @@
         <div class="d-flex justify-content-left">
           <% for(var z = 0; z < 5; ++z){ %>
           <div class="card" style="margin-right: 2ch !important; width: 18rem;">
-            <img src="..." class="card-img-top" alt="...">
+            <img src="'<%= evets_per_category[categories][z].get(main_picture)%>'" class="card-img-top" alt="...">
             <div class="card-body">
-              <h5 class="card-title">Card <%=z%></h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
+              <h5 class="card-title"><%= evets_per_category[categories][z].get(title)%></h5>
+              <p class="card-text"><%= evets_per_category[categories][z].get(body)%></p>
               <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
           </div>
