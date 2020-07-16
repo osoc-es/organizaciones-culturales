@@ -30,11 +30,12 @@ const upload = multer({
 });
 
 
-router.post('/create-event', async (req, res) => {
+router.post('/create-event', passportConfig.estaAutenticado, async (req, res) => {
 
     try {
 
 
+        console.log("Hola1");
         console.log(req.body.category)
 
         let category_index;
@@ -99,7 +100,7 @@ router.post('/create-event', async (req, res) => {
 
         res.send(evets_per_category)
         // TODO
-        res.redirect('/home', { evets_per_category })
+      //  res.redirect({ evets_per_category },'/home')
 
     }
     catch (e) {
