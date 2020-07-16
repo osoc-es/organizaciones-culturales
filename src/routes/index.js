@@ -68,15 +68,6 @@ router.post('/create-event', async (req, res) => {
             await Event.find({ "category": 3 })
         ];
 
-        var cine_imgs =
-            [
-                "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Sala_de_cine.jpg/800px-Sala_de_cine.jpg",
-                "https://upload.wikimedia.org/wikipedia/commons/8/8d/Cine_Teatro_L%C3%A1zaro_Urd%C3%ADn_desde_las_butacas.jpg",
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQOjKlGKgB7NTPnEzpas1oDOWkvUm2YfuF32g&usqp=CAU",
-                "https://cdn.pixabay.com/photo/2019/04/23/08/49/movie-4148841_1280.jpg",
-                "https://upload.wikimedia.org/wikipedia/commons/1/1b/Cine_Ideal_%28Madrid%29_01.jpg"
-            ]
-
         // Add random images to cinemas
         evets_per_category.forEach(cat => {
             cat.forEach(ev => {
@@ -210,23 +201,19 @@ router.get('/home', async (req, res) => {
         await Event.find({ "category": 0 }),
         await Event.find({ "category": 1 }),
         await Event.find({ "category": 2 }),
-        await Event.find({ "category": 3 })
+        await Event.find({ "category": 3 }),
+        await Event.find({ "category": 4 })
     ];
-
     
-
+        console.log(evets_per_category);
 
     // Add random images to cinemas
     evets_per_category.forEach(cat => {
         cat.forEach(ev => {
-            if (ev.category == 0) // Cinemas
-                ev.main_picture = cine_imgs[Math.floor(Math.random() * cine_imgs.length)];
-            else if (ev.category == 1) // Teatro
-                ev.main_picture = teatro_imgs[Math.floor(Math.random() * teatro_imgs.length)];
-            else if (ev.category == 2) // Gastronomia
-                ev.main_picture = gastronomia_imgs[Math.floor(Math.random() * gastronomia_imgs.length)];
-            else if (ev.category == 3) // Museos
-                ev.main_picture = museo_imgs[Math.floor(Math.random() * museo_imgs.length)];
+            if (ev.main_picture == null) {
+                console.log("-------- " + ev._id)
+                ev.main_picture = "https://4.bp.blogspot.com/-05Vg3I4j-TU/VDPR0iIsBpI/AAAAAAAAycQ/IWb1oD0H5Ug/s1600/image_oikos3.jpg"
+            }
 
         })
     });

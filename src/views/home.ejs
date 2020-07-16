@@ -5,65 +5,125 @@
 
 <br>
 <br>
-<!-- <img src="<%= evets_per_category[0][0].main_picture%>" class="card-img-top" alt="..."> -->
 <br>
-<% for(var categories = 0; categories < evets_per_category.length; ++categories){ %>
-<div class="d-flex justify-content-center">
-  <% if(categories == 0){ %>
-  <h1>CINE</h1>
-  <% }else if(categories == 1){ %>
-  <h1>TEATRO</h1>
-  <% }else if(categories == 2){ %>
-  <h1>GASTRONOMÍA</h1>
-  <% }else if(categories == 3){ %>
-  <h1>MUSEO</h1>
-  <% }else if(categories == 4){ %>
-  <h1>MÚSICA</h1>
-  <% }%>
-
-</div>
-
-
 <br>
-<div class="d-flex justify-content-center">
-  <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-    <div class="carousel-inner">
-      <% for(var i = 0; i < 2 ; ++i){ %>
+
+<style>
+  $itemGrow: 1.2;
+  $duration: 250ms;
+
+html {
+  scroll-behavior: smooth;
+}
 
 
-      <div class="carousel-item <%= i == 0 ? 'active' : '' %>">
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(3,100%);
+  overflow:hidden;
+  scroll-behavior: smooth;
+}
 
-        <div class="d-flex justify-content-left">
-          <% for(var z = 0; z < 5; ++z){ %>
-          <div class="card" style="margin-right: 2ch !important; width: 18rem;">
-            <img src="<%= evets_per_category[categories][z].main_picture%>" style="max-height: 10rem;" class="card-img-top img-thumbnail" alt="...">
-            <div class="card-body">
-              <h5 class="card-title"><%= evets_per_category[categories][z].title%></h5>
-              <p class="card-text"><%= evets_per_category[categories][z].body%></p>
-            </div>
-            <div class="card-footer text-muted"><a href="/evento/<%=evets_per_category[categories][z]._id%>" method="POST" class="btn btn-primary">Go
-              somewhere</a></div>
-          </div>
-          <%}%>
-        </div>
-      </div>
-        <% } %>
+  
+      
+    
+    
+  section {
+    width: 100%;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    margin: 20px 0;
+    
+    .item {
+      padding: 0 2px;
+      transition: $duration all;
+      
+      &:hover { 
+        margin: 0 40px;
+        transform: scale(1.2);
+      }
+      
+    }
+    
+    a {
+      position: absolute;
+      color: #fff;
+      text-decoration: none;
+      font-size: 6em;
+      background:rgb(0,0,0);
+      width: 80px;
+      padding: 20px;
+      text-align: center;
+      z-index: 1;
+      
+      &:nth-of-type(1) {
+        top:0; bottom:0; left:0;
+        background: linear-gradient(-90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
+      }
+      &:nth-of-type(2) {
+        top:0; bottom:0; right: 0;
+        background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
+      }
+      
+    }
+    
+  }
+}
 
-        </div>
-        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
-      </div>
-    </div>
-    <br>
-    <br>
+     
+  @media only screen and (max-width: 600px) {
+    a.arrow__btn {
+      display:none;
+    }
+  } 
+    
+    
+  
+
+</style>
+
+<% for(var categories = 0; categories < evets_per_category.length; ++categories){ let nSections = Math.floor(evets_per_category[categories].length/5) %>
+  <div class="d-flex justify-content-center">
+    <% if(categories == 0){ %>
+    <h1>CINE</h1>
+    <% }else if(categories == 1){ %>
+    <h1>TEATRO</h1>
+    <% }else if(categories == 2){ %>
+    <h1>GASTRONOMÍA</h1>
+    <% }else if(categories == 3){ %>
+    <h1>MUSEO</h1>
+    <% }else if(categories == 4){ %>
+    <h1>MÚSICA</h1>
     <% }%>
-
+  
+  </div>
+<div class="wrapper">
+<%for(var sections = 0.0; sections < nSections || sections == 0; ++sections ){%>
+  <section id="section <%=sections%>">
+    <%if(sections > 0){%>
+    <a class="section" href="#section<%=sections - 1%>">‹</a>
+    <%} let borosa = evets_per_category[categories].length - sections * 5 >= 5 ? sections * 5 + 5 : evets_per_category[categories].length - sections * 5 %>
+    <%for(var card = sections * 5; card < borosa ; ++card){%>
+      <div class="item">
+        <div class="card" style="margin-right: 2ch !important; width: 23rem; height: 25rem;">
+          <img src="<%= evets_per_category[categories][card].main_picture%>" style="max-height: 10rem;" class="card-img-top img-thumbnail" alt="...">
+          <div class="card-body">
+            <h5 class="card-title"><%= evets_per_category[categories][card].title%></h5>
+            <p class="card-text"><%= evets_per_category[categories][card].body%></p>
+          </div>
+          <div class="card-footer text-muted"><a href="/evento/<%=evets_per_category[categories][card]._id%>" method="POST" class="btn btn-primary">Go
+            somewhere</a></div>
+        </div>
+      </div>
+      <%}%>
+      <%if(sections < nSections -1){%>
+    <a class="section" href="#section<%=sections + 1%>">›</a>
+    <%}%>
+  </section>
+  <%}%>
+</div>
+<%}%>
 
 
 
