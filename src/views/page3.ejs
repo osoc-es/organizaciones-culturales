@@ -6,7 +6,7 @@
             <div class="card-body">
             <h5 class="card-title" style="text-align: center; font-size: xx-large; font-weight: bold;">Bienvenido</h5>
             <br>
-            <form action="/user/register" method="POST">
+            <form action="/signupUser" method="POST">
                 <div class="form-group">
                 <label for="exampleInputnombre1">Nombre</label>
                 <input type="nombre" class="form-control" id="exampleInputnombre1" aria-describedby="emailHelp" name="name">
@@ -16,8 +16,12 @@
                 <input type="correo" class="form-control" id="exampleInputcorreo1" name="email">
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputlocaliz1">Edad</label>
-                    <input type="localiz" class="form-control" id="exampleInputlocaliz1" name="location">
+                    <label for="exampleInputedad1">Edad</label>
+                    <input type="text" class="form-control" id="exampleInputlocaliz1" name="age">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputcontra1">Contraseña</label>
+                    <input type="contra" class="form-control" id="exampleInputcontra1" name="password">
                 </div>
                 <button type="continuar" href="/home_user" class="btn btn-light">Finalizar</button> 
             </form>
