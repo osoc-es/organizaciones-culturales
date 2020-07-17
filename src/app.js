@@ -9,8 +9,8 @@ const passport = require('passport');
 const bodyparser = require('body-parser');
 
 const app = express();
-//const mongoURI = 'mongodb://mongo:27017/osoc';
-const mongoURI = 'mongodb://localhost/osoc-test';
+const mongoURI = 'mongodb://mongo:27017/osoc';
+//const mongoURI = 'mongodb://localhost/osoc-test'; // testing in local
 
 // Create the server:
 

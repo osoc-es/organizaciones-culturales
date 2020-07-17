@@ -6,7 +6,7 @@ Desde nuestra organización creemos que la cultura es una de las cosas más impo
 ## WebPage
 ***
 
-El proyecto está accesible en:  <http://coming soon>
+El proyecto está accesible en:  <https://culturapptivity.summerofcode.es/home>
 
 ## Instalacion
 ***

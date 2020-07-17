@@ -184,6 +184,10 @@ router.get('/home_user', async (req, res) => {
     res.render('home_user', { evets_per_category: evets_per_category, Categories });
 })
 
+router.get('/index', (req, res) => {
+    const categories = Categories;
+    res.render('index', { categories })
+})
 
 router.get('/get', (req, res) => {
     res.render('index')
