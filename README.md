@@ -51,7 +51,7 @@ Para desarrollar el proyecto se ha usado:
 
 ## Agradecimientos
 ***
-A todos los compoñaderos y profesores del osoc. #osoc-family
+A todos los compañeros, staff y coachs del osoc. #osoc-family
 
 
 
