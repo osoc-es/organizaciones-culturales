@@ -55,7 +55,7 @@ router.post('/create-event', /*passportConfig.estaAutenticado,*/ async (req, res
             tags: tags_array,
             localization: req.body.localization,
             extraInfo: req.body.extra_info,
-            web: web
+            web: req.body.web
         });
 
         await event.save(); // save it
@@ -110,8 +110,27 @@ router.post('/submitImg', upload.single("image"), async (req, res) => {
 
 
 router.get('/', (req, res) => {
-    const categories = Categories;
-    res.render('index', { categories })
+
+    // var evets_per_category = [
+    //     await Event.find({ "category": 0 }),
+    //     await Event.find({ "category": 1 }),
+    //     await Event.find({ "category": 2 }),
+    //     await Event.find({ "category": 3 }),
+    //     await Event.find({ "category": 4 })
+    // ];
+
+    // // In case a event dont have a main picture, we provide it
+    // evets_per_category.forEach(cat => {
+    //     cat.forEach(ev => {
+    //         if (ev.main_picture == null) {
+    //             console.log("-------- " + ev._id)
+    //             ev.main_picture = "https://4.bp.blogspot.com/-05Vg3I4j-TU/VDPR0iIsBpI/AAAAAAAAycQ/IWb1oD0H5Ug/s1600/image_oikos3.jpg"
+    //         }
+
+    //     })
+    // });
+
+    res.redirect('home');
 })
 
 
