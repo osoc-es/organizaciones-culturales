@@ -11,6 +11,11 @@ const bodyparser = require('body-parser');
 const app = express();
 const mongoURI = /*'mongodb://mongo:27017/mongo';*/'mongodb://localhost/osoc-test';
 
+
+
+// Create the server:
+
+
 // connecting to db
 const conn = mongoose.createConnection(mongoURI);
 
@@ -35,6 +40,7 @@ app.use(passport.session());
 
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
+
 
 // import routes
 const indexRoutes = require('./routes/index');

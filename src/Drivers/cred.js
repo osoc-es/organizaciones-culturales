@@ -1,106 +1,105 @@
-const passport=require('passport');
-const Cred=require('../models/Credential');
-const Organizacion= require('../models/Organization');
-const Usuario= require('../models/User');
-const bcrypt=require('bcryptjs');
+const passport = require('passport');
+const Cred = require('../models/Credential');
+const Organizacion = require('../models/Organization');
+const Usuario = require('../models/User');
+const bcrypt = require('bcryptjs');
 const { render } = require('ejs');
 
-exports.postSignupOrg= async (req,res,next)=>{ //Se llamara desde otro lado dependiendo de que sea org o usuario
-  try{
-  const nuevaOrg= new Organizacion({
-    name : req.body.name,
-    telephone : req.body.telephone,
-    webPage : req.body.webPage
-  });
+//Se llamara desde otro lado dependiendo de que sea org o usuario
+exports.postSignupOrg = async (req, res, next) => {
+  try {
+    const nuevaOrg = new Organizacion({
+      name: req.body.name,
+      telephone: req.body.telephone,
+      webPage: req.body.webPage
+    });
 
-  const nuevoCred=new Cred({
-    email : req.body.email,
-    password : await bcrypt.hash(req.body.password, 10),
-    foreignKey: nuevaOrg
-  });
+    const nuevoCred = new Cred({
+      email: req.body.email,
+      password: await bcrypt.hash(req.body.password, 10),
+      foreignKey: nuevaOrg
+    });
 
-  Cred.findOne({email : req.body.email},(err, credsExistente)=>{
-    if(credsExistente){
-      return res.send('Ya esta regisrado');
-    }
-    nuevaOrg.save();
-    nuevoCred.save((err)=>{
-      if(err){
-        next(err);
+    Cred.findOne({ email: req.body.email }, (err, credsExistente) => {
+      if (credsExistente) {
+        return res.send('Ya esta regisrado');
       }
-      req.logIn(nuevoCred,(err)=>{
-        if(err){
+      nuevaOrg.save();
+      nuevoCred.save((err) => {
+        if (err) {
           next(err);
         }
-        //nuevaOrg.save();
-        //nuevoCred.save();
-       // res.send("Usuario creado exitosamente");//Tambien aniadir enciar correo
-        res.redirect('/');
+        req.logIn(nuevoCred, (err) => {
+          if (err) {
+            next(err);
+          }
+
+          res.redirect('/');
+        })
+
       })
-
-    })
+    }
+    )
   }
-)
-}
-catch(e){
+  catch (e) {
 
-}
+  }
 };
 
-exports.postSignupUser= async (req,res,next)=>{ //Se llamara desde otro lado dependiendo de que sea org o usuario
-  try{
-  const nuevoUser= new Usuario({
-    name : req.body.name,
-    age : req.body.age
-  });
-  const nuevoCred=new Cred({
-    email : req.body.email,
-    password : await bcrypt.hash(req.body.password, 10),
-    foreignKey: nuevoUser
-  });
+exports.postSignupUser = async (req, res, next) => { //Se llamara desde otro lado dependiendo de que sea org o usuario
+  try {
+    const nuevoUser = new Usuario({
+      name: req.body.name,
+      age: req.body.age
+    });
+    const nuevoCred = new Cred({
+      email: req.body.email,
+      password: await bcrypt.hash(req.body.password, 10),
+      foreignKey: nuevoUser
+    });
 
-  Cred.findOne({email : req.body.email},(err, credsExistente)=>{
-    if(credsExistente){
-      return res.send('Ya esta registrado');
-    }
-    nuevoUser.save();
-    nuevoCred.save((err)=>{
-      if(err){
-        next(err);
+    Cred.findOne({ email: req.body.email }, (err, credsExistente) => {
+      if (credsExistente) {
+        return res.send('Ya esta registrado');
       }
-      req.logIn(nuevoCred,(err)=>{
-        if(err){
+      nuevoUser.save();
+      nuevoCred.save((err) => {
+        if (err) {
           next(err);
         }
-        //nuevoUser.save();
-        //nuevoCred.save();
-        res.send("Usuario creado exitosamente");//Tambien aniadir enciar correo
+        req.logIn(nuevoCred, (err) => {
+          if (err) {
+            next(err);
+          }
+
+          res.send("Usuario creado exitosamente"); //Tambien aniadir enviar correo
+        })
       })
-    })
+    }
+    )
   }
-)}
-catch(e){}
+  catch (e) { }
 }
 
-exports.postLogin=(req,res,next)=>{
-  passport.authenticate('local',(err,cred,info)=>{
-    if(err){
+exports.postLogin = (req, res, next) => {
+  passport.authenticate('local', (err, cred, info) => {
+    if (err) {
       next(err);
     }
-    if(!cred){
+    if (!cred) {
       return res.status(400).send('Email o contrasenia no valido');
     }
-    req.logIn(cred,(err)=>{
-      if(err){
+    req.logIn(cred, (err) => {
+      if (err) {
         next(err);
       }
-      res.send('LogIn exitoso');
+
+      res.redirect('/home_user')
     })
-  })(req,res,next);
+  })(req, res, next);
 }
 
-exports.logout= (req,res)=>{
+exports.logout = (req, res) => {
   req.logout();
-  res.send("Se ha cerrado correctamente la sesion");
-
+  res.redirect('/home')
 }
